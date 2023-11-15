@@ -4,6 +4,23 @@
 	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 	 version="4.0">
+    
+    
+    <!--Admin--> 
+    <servlet>
+        <servlet-name>AdminController</servlet-name>
+        <servlet-class>store.controllers.AdminController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminController</servlet-name>
+        <url-pattern>/loadProducts</url-pattern>
+        <url-pattern>/admin/stored/products</url-pattern>
+        <url-pattern>/admin/stored/categories</url-pattern>
+        <url-pattern>/admin/stored/orders</url-pattern>
+        <url-pattern>/admin/stored/users</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30
