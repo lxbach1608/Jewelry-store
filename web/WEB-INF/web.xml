@@ -21,6 +21,16 @@
         <url-pattern>/admin/*</url-pattern>
     </servlet-mapping>
     
+    <!--Product--> 
+    <servlet>
+        <servlet-name>ProductController</servlet-name>
+        <servlet-class>store.controllers.ProductController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProductController</servlet-name>
+        <url-pattern>/products/create</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30

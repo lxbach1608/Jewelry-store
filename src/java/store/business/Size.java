@@ -13,6 +13,8 @@ public class Size implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long sizeId;
+    
+    private double size;
 
     public Long getSizeId() {
         return sizeId;
@@ -29,8 +31,6 @@ public class Size implements Serializable {
     public void setSize(double size) {
         this.size = size;
     }
-    
-    private double size;
     
     
     public Size() {}

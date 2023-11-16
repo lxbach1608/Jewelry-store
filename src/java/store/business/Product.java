@@ -122,10 +122,10 @@ public class Product implements Serializable {
     
     
     // Function
-    public String formattedPrice() {
+    public String formattedPrice(double price) {
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
         
-        String formattedPrice = "$" + decimalFormat.format(this.price);
+        String formattedPrice = "$" + decimalFormat.format(price);
         
         return formattedPrice;
     }

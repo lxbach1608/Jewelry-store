@@ -35,54 +35,8 @@ public class AdminController extends HttpServlet {
         System.out.println(requestURI);
         
         System.out.println("------------- end do post admin ------------");
-//        
-//        String url = "/index.jsp";
-//        
-//        String requestURI = request.getRequestURI();
-//        
-//        if(requestURI.endsWith("/admin/displayAdminPage")) {
-//            url = displayAdminPage(request, response);
-//        }
-//        
-//        if(requestURI.endsWith("displayProduct")) {
-//            url = displayProduct(request, response);
-//        }
-//        
-//        // Product
-//        if(requestURI.contains("/admin/product")) {
-//            if(requestURI.endsWith("/admin/product/create")) {
-//                url = insertProduct(request, response);
-//            }
-//            if(requestURI.endsWith("/admin/product/update")) {
-//                url = updateProduct(request, response);
-//            }
-//            if(requestURI.endsWith("/admin/product/delete")) {
-//                url = deleteProduct(request, response);
-//            }
-//        }
-//        
-//        // Category
-//        if(requestURI.contains("/admin/category")) {
-//            if(requestURI.endsWith("/admin/category/parent/create")) {
-//                url = insertParentCategory(request, response);
-//            }
-//            if(requestURI.endsWith("/admin/category/child/create")) {
-//                url = insertChildCategory(request, response);
-//            }
-//        }
-//        
-//        // Promotion
-//        if(requestURI.contains("/admin/promotion")) {
-//            if(requestURI.endsWith("/admin/promotion/create")) {
-//                url = insertPromotion(request, response);
-//            }
-//        }
-//
-//        if(requestURI.endsWith("/")) {
-//            url = "/index.jsp";
-//        }
-//        
-//        getServletContext().getRequestDispatcher(url).forward(request, response);
+        
+//        getServletContext().getRequestDispatcher(url).forward(r, responequest, response);
     }
     
     // [GET] /admin/show
@@ -165,17 +119,17 @@ public class AdminController extends HttpServlet {
         }
 
 
-        try {
-            size = sizeInput.endsWith(".0") ? SizeDB.selectSize((int)sizeValue) : SizeDB.selectSize(sizeValue);
-        } catch(Exception e) {
-            System.out.println("Error in get Size instant");
-        }
-        
-        try {
-            color = ColourDB.selectColor(colorInput);
-        } catch(Exception e) {
-            System.out.println("Error in get Colour instant");
-        }
+//        try {
+//            size = sizeInput.endsWith(".0") ? SizeDB.selectSize((int)sizeValue) : SizeDB.selectSize(sizeValue);
+//        } catch(Exception e) {
+//            System.out.println("Error in get Size instant");
+//        }
+//        
+//        try {
+//            color = ColourDB.selectColor(colorInput);
+//        } catch(Exception e) {
+//            System.out.println("Error in get Colour instant");
+//        }
 
         Product p = new Product();
         p.setName(name);
@@ -296,7 +250,6 @@ public class AdminController extends HttpServlet {
             }
         }
         
-        displayChildCategory(request, response);
         
         String url = "/views/admin/index.jsp";
         
@@ -345,6 +298,12 @@ public class AdminController extends HttpServlet {
     //
     
     
+    private void displayCategories(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        
+        
+    }
+    
     private String storedProducts(HttpServletRequest request, HttpServletResponse response) {
         
         HttpSession session = request.getSession();
@@ -352,6 +311,18 @@ public class AdminController extends HttpServlet {
         List<Product> products = ProductDB.selectProducts();
 
         session.setAttribute("products", products);
+        
+        List<Category> categories = CategoryDB.selectCategories();
+        
+        session.setAttribute("categories", categories);
+        
+        List<Size> sizes = SizeDB.selectSizes();
+        
+        session.setAttribute("sizes", sizes);
+        
+        List<Colour> colors = ColourDB.selectColors();
+        
+        session.setAttribute("colors", colors);
         
         return "/views/admin/stored-products.jsp";
     }

@@ -146,7 +146,7 @@
 
                         <td class="flex flex-col py-2 px-4 justify-center" style="min-height: 59px">
                             <c:forEach var="child" items="${category.getChildren()}">
-                                <div class="flex items-center">
+                                <div class="flex items-center justify-center">
                             <span class="text-xs text-gray-500 pr-1">
                               <svg
                                 stroke="currentColor"
@@ -559,18 +559,6 @@
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            <!-- Product SKU -->
-            <div class="grid grid-cols-6 gap-6 mb-6">
-              <label for="" class="text-slate-400 text-sm">Product SKU</label>
-              <div class="col-span-4 col-start-3">
-                <input
-                  type="text"
-                  class="w-full h-12 px-3 py-1 text-sm text-gray-300 leading-5 border border-gray-600 rounded-md bg-gray-700 focus:outline-none focus:border-gray-500"
-                  placeholder="Product Title/Name"
-                />
               </div>
             </div>
 

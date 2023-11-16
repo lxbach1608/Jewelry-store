@@ -1,0 +1,15 @@
+.btn-red {
+  background-color: red !important;
+}
+
+:root {
+}
+
+.parent-category {
+  
+}
+
+.selected {
+  font-weight: 700 !important;
+  color: #7c3aed;
+}

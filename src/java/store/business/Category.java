@@ -71,4 +71,26 @@ public class Category implements Serializable {
    public List<Product> getProducts() {
        return CategoryDB.selectProducts(this.categoryId);
    }
+   
+   public static List<Category> convertToCategories(String[] strArr) {
+        List<Category> list = new ArrayList<Category>();
+
+       try
+        {
+            for(String value : strArr)
+            {
+                long id = Long.parseLong(value);
+                
+                Category c = CategoryDB.selectCategory(id);
+                
+                list.add(c);
+            }
+        }
+        catch(NullPointerException ex)
+        {
+            System.out.println(ex);
+        }
+       
+       return list;
+   }
 }
