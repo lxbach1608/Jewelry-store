@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
     if (imgDemo.attr("src") === "") {
       $(".close-img").addClass("hidden");
     }
-  });
+  }); 
 
   // product input
   const nameInput = $("input[name=name]");

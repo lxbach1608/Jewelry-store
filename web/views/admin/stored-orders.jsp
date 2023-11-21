@@ -1,8 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<jsp:include page="/views/admin/header.jsp" />
-<jsp:include page="/views/admin/sidebar.jsp" />
-<main>
+<jsp:include page="/views/partials/adminHeader.jsp" />
+<main class="flex">
+    <jsp:include page="/views/partials/adminSidebar.jsp" />
     <h1>Orders</h1>
 </main>
-<jsp:include page="/views/admin/footer.jsp" />
+    <jsp:include page="/views/partials/adminFooter.jsp" />

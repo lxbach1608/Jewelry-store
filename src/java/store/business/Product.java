@@ -18,6 +18,7 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long productId;
     
+    
     @OneToOne
     private Size size;
     

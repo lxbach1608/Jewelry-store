@@ -2,9 +2,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
-<jsp:include page="/views/admin/header.jsp" />
+<jsp:include page="/views/partials/adminHeader.jsp" />
 <main class="flex">
-    <jsp:include page="/views/admin/sidebar.jsp" />
+    <jsp:include page="/views/partials/adminSidebar.jsp" />
 
     <div class="content bg-gray-900 px-6 w-full">
         <h1 class="my-6 font-bold text-lg text-gray-300">Categories</h1>
@@ -625,7 +625,7 @@
     </div>
 </main>
     
-<jsp:include page="/views/admin/footer.jsp" />
+    <jsp:include page="/views/partials/adminFooter.jsp" />
 
 <script>
     const productModel = $("#product-edit-model");

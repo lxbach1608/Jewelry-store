@@ -10,5 +10,6 @@
     <body>
         <h1>INDEX</h1>
         <a href="<c:url value="/admin/stored/products" />">ADMIN</a>
+        <a href="<c:url value="/products/shopShow" />">SHOP</a>
     </body>
 </html>

@@ -50,7 +50,21 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        System.out.println("in do get product controller");
+        System.out.println("in do get Product");
+        
+        String url = "/views/products/shopShow.jsp";
+        
+        String requestURI = request.getRequestURI();
+        
+        System.out.println(requestURI);
+        
+        if(requestURI.endsWith("/products/shopShow")) {
+            url = shopShow(request, response);
+        }
+        
+        System.out.println("------------- end do get Product ------------");
+        
+        getServletContext().getRequestDispatcher(url).forward(request, response);
     }
     
     private void show(HttpServletRequest request, HttpServletResponse response) {
@@ -62,6 +76,17 @@ public class ProductController extends HttpServlet {
         session.setAttribute("products", products);
     }
 
+    private String shopShow(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        
+        List<Product> products = ProductDB.selectProducts();
+
+        session.setAttribute("products", products);
+        
+        return "/views/products/shopShow.jsp";
+    }
+    
+    
     private void create(HttpServletRequest request, HttpServletResponse response) {
         
         String name = request.getParameter("name");

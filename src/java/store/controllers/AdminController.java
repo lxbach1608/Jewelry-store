@@ -46,7 +46,6 @@ public class AdminController extends HttpServlet {
         throws ServletException, IOException {
         System.out.println("in do get Admin");
         
-        // initial default url if the request doesn't match any route (particular url)
         String url = "/views/admin/stored-products.jsp";
         
         String requestURI = request.getRequestURI();

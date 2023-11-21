@@ -6,7 +6,7 @@
 	 version="4.0">
     
     
-    <!--Admin--> 
+    <!--Admin-->  
     <servlet>
         <servlet-name>AdminController</servlet-name>
         <servlet-class>store.controllers.AdminController</servlet-class>
@@ -21,7 +21,7 @@
         <url-pattern>/admin/*</url-pattern>
     </servlet-mapping>
     
-    <!--Product--> 
+    <!--Product-->
     <servlet>
         <servlet-name>ProductController</servlet-name>
         <servlet-class>store.controllers.ProductController</servlet-class>
@@ -29,6 +29,7 @@
     <servlet-mapping>
         <servlet-name>ProductController</servlet-name>
         <url-pattern>/products/create</url-pattern>
+        <url-pattern>/products/shopShow</url-pattern>
     </servlet-mapping>
     
     <session-config>

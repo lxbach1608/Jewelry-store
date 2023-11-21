@@ -20,18 +20,19 @@ public class LineItem implements Serializable {
     private Long lineItemId;
     
     @OneToOne
-    private Product product;
+    private ProductItem productItem;
+
+    public ProductItem getProductItem() {
+        return productItem;
+    }
+
+    public void setProductItem(ProductItem productItem) {
+        this.productItem = productItem;
+    }
     
     private int quantity = 1;
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
+    
     public int getQuantity() {
         return quantity;
     }

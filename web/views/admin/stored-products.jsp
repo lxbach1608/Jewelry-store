@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<jsp:include page="/views/admin/header.jsp" />
+<jsp:include page="/views/partials/adminHeader.jsp" />
 <main class="flex">
-    <jsp:include page="/views/admin/sidebar.jsp" />
+    <jsp:include page="/views/partials/adminSidebar.jsp" />
 
     <div class="content bg-gray-900 px-6 w-full">
         <h1 class="my-6 font-bold text-lg text-gray-300">Products</h1>
@@ -210,7 +210,7 @@
                         <div class="w-8 h-8 mr-2">
                           <img
                             class="object-cover rounded-full"
-                            src="https://res.cloudinary.com/ahossain/image/upload/v1682058933/product/CMTHP-COR12-deep-ash-920x920.webp"
+                            src="${product.getImageUrl()}"
                             alt=""
                           />
                         </div>
@@ -319,8 +319,6 @@
                     </td>
                   </tr>
                     </c:forEach>
-
-
                   <tr class="border-b border-gray-700 even:bg-slate-800">
                     <td class="py-2 px-4">
                       <input type="checkbox" />
@@ -828,6 +826,23 @@
                 />
               </div>
             </div>
+            
+            <!--Quantity-->
+            <div class="grid grid-cols-6 gap-6 mb-6">
+              <label for="" class="text-slate-400 text-sm">Selling quantity</label>
+              <div class="flex flex-row col-span-4 col-start-3">
+                <span
+                  class="inline-flex items-center px-3 rounded rounded-r-none border-r-0 text-sm focus:border-emerald-300 bg-gray-700 text-gray-300 border border-gray-600"
+                  >sl</span
+                >
+                <input
+                  type="number"
+                  name="quantity"
+                  class="w-full h-12 px-3 py-1 text-sm text-gray-300 leading-5 border border-gray-600 rounded-tr-md rounded-br-md bg-gray-700 focus:outline-none focus:border-gray-500"
+                  placeholder="Quantity"
+                />
+              </div>
+            </div>
 
             <!-- Slug -->
             <div class="grid grid-cols-6 gap-6 mb-6">
@@ -870,6 +885,4 @@
       </div>
     </div>
 </main>
-
-
-<jsp:include page="/views/admin/footer.jsp" />
+<jsp:include page="/views/partials/adminFooter.jsp" />
