@@ -12,6 +12,6 @@
         <a href="<c:url value="/admin/stored/products" />">ADMIN</a>
         <a href="<c:url value="/products/shopShow" />">SHOP</a>
         <a href="<c:url value="/site/cart" />">CART</a>
-        <!--<a href="<c:url value="/site/checkout" />">CHECKOUT</a>-->
+        <a href="<c:url value="/site/checkout" />">CHECKOUT</a>
     </body>
 </html>
