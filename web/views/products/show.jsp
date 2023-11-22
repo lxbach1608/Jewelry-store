@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="/views/partials/siteHeader.jsp" />
 
@@ -189,10 +190,11 @@
             <span class="paging-lable">Showing 1–12 of 17 results</span>
 
             <div class="row">
+                
               <div class="col l-4 mb-30">
                 <div class="product-item">
                   <div class="product-wrapper">
-                    <a href="#">
+                    <a  href="<c:url value="/products/details" />">
                       <img
                         class="product__img"
                         src="https://mldrbgfat3wx.i.optimole.com/SQPHnU0-FGk4D64U/w:300/h:300/q:auto/rt:fill/g:ce/https://dici.themes.zone/main/wp-content/uploads/sites/8/2018/04/DC_Products_6.jpg"

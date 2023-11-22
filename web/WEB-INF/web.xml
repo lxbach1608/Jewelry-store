@@ -33,7 +33,7 @@
         <servlet-name>ProductController</servlet-name>
         <url-pattern>/products/create</url-pattern>
         <url-pattern>/products/show</url-pattern>
-        <url-pattern>/products/details</url-pattern>
+        <url-pattern>/products/details/*</url-pattern>
     </servlet-mapping>
     
     <!-- Site -->

@@ -42,6 +42,9 @@
     <!-- main.css -->
     <link rel="stylesheet" href="<c:url value="/public/css/main.css"/>" />
     
+    <!-- productDetails.css -->
+    <!--<link rel="stylesheet" href="<c:url value="/public/css/productDetails.css"/>" />-->
+    
 </head>
 <body>
     <header id="header">

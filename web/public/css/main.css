@@ -1551,13 +1551,15 @@ input[type="radio"] {
   cursor: pointer;
 }
 
-.category-list {
+/*Category list*/
+
+.product-content .category-list {
   margin-top: 20px;
   display: flex;
   font-size: 1.2rem;
 }
 
-.category-list li a {
+.product-content .category-list li a {
   margin-right: 4px;
   text-transform: uppercase;
   color: var(--green);
@@ -1607,7 +1609,7 @@ input[type="radio"] {
 }
 
 .additional-text {
-  font-size: 1.5;
+  font-size: 1.5rem;
   line-height: 1.7;
   font-weight: 400;
 }
@@ -1639,7 +1641,7 @@ input[type="radio"] {
 
 .no-review .text {
   letter-spacing: 0.5px;
-  font-size: 1.4;
+  font-size: 1.4rem;
 }
 
 /*  */
