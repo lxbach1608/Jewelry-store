@@ -24,7 +24,6 @@ public class ProductController extends HttpServlet {
         
         System.out.println("in do post product controller");
         
-        // initial default url if the request doesn't match any route (particular url) or wrong path
         String url = "/admin/stored/products";
         
         String requestURI = request.getRequestURI();
@@ -32,13 +31,7 @@ public class ProductController extends HttpServlet {
         if(requestURI.endsWith("/products/create")) {
             create(request, response);
         }
-//        if(requestURI.endsWith("/products/update")) {
-//            update(request, response);
-//        }
-//        if(requestURI.endsWith("/products/delete")) {
-//            delete(request, response);
-//        }
-//
+
         String rootPath = getServletContext().getContextPath();
         
         response.sendRedirect(rootPath + url);
@@ -46,7 +39,6 @@ public class ProductController extends HttpServlet {
     }
     
     // file-wellcome: /loadProducts
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
@@ -56,13 +48,17 @@ public class ProductController extends HttpServlet {
         
         String requestURI = request.getRequestURI();
         
+        String rootPath = getServletContext().getContextPath();
+        
         System.out.println(requestURI);
         
-        if(requestURI.endsWith("/products/shopShow")) {
+        if(requestURI.endsWith("/products/show")) {
             url = shopShow(request, response);
         }
         
-        System.out.println("------------- end do get Product ------------");
+        if(requestURI.endsWith(rootPath + "/products/details")) {
+            url = productDetails(request, response);
+        }
         
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
@@ -83,7 +79,17 @@ public class ProductController extends HttpServlet {
 
         session.setAttribute("products", products);
         
-        return "/views/products/shopShow.jsp";
+        return "/views/products/show.jsp";
+    }
+    
+    private String productDetails(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        
+        List<Product> products = ProductDB.selectProducts();
+
+        session.setAttribute("products", products);
+        
+        return "/views/products/details.jsp";
     }
     
     

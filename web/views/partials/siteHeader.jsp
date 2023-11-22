@@ -184,7 +184,7 @@
       <ul class="catalog-list">
         <li><a href="">Home</a></li>
         <li class="catalog-shop relative">
-          <a href="#">
+          <a href="<c:url value="/products/show" />">
             <span class="mr-8">Shop</span>
             <i class="fa-solid fa-angle-down fs-14"></i>
           </a>

@@ -1,11 +1,11 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="/views/partials/siteHeader.jsp" />
 
 <jsp:include page="/views/partials/breadcrumb.jsp" />
 
 
-<div class="main">
+<div class="main mb-100">
     <form action="">
       <table class="grid wide table-cart">
         <thead class="cart-thead">
@@ -170,9 +170,9 @@
             </li>
           </ul>
 
-          <button class="btn btn--active fs-12 pull-right">
+          <a href="<c:url value="/site/checkout" />" class="btn btn--active fs-12 pull-right">
             Proceed to checkout
-          </button>
+          </a>
         </div>
       </div>
     </div>
