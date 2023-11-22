@@ -18,6 +18,9 @@
         <url-pattern>/admin/stored/categories</url-pattern>
         <url-pattern>/admin/stored/orders</url-pattern>
         <url-pattern>/admin/stored/users</url-pattern>
+        
+        <url-pattern>/admin/user/create</url-pattern>
+
         <url-pattern>/admin/*</url-pattern>
     </servlet-mapping>
     
@@ -30,6 +33,17 @@
         <servlet-name>ProductController</servlet-name>
         <url-pattern>/products/create</url-pattern>
         <url-pattern>/products/shopShow</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Site -->
+    <servlet>
+        <servlet-name>SiteController</servlet-name>
+        <servlet-class>store.controllers.SiteController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SiteController</servlet-name>
+        <url-pattern>/site/cart</url-pattern>
+        <url-pattern>/site/checkout</url-pattern>
     </servlet-mapping>
     
     <session-config>

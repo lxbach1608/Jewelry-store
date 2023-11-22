@@ -2,17 +2,8 @@
 
 <jsp:include page="/views/partials/siteHeader.jsp" />
 
-<!-- Breadcrumb -->
-<section class="breadcrumb">
-  <div class="breadcrumb__wrapper">
-    <ul class="breadcrumb-list">
-      <li><a href="#">Home &nbsp; ></a></li>
-      <li><a href="#">&nbsp; Bracelets &nbsp; ></a></li>
-      <li><a href="#" class="active">&nbsp; Men's Bands &nbsp;</a></li>
-    </ul>
-    <h3 class="breadcrumb__title">Men's Bands</h3>
-  </div>
-</section>
+<jsp:include page="/views/partials/breadcrumb.jsp" />
+
 
 <div class="main">
       <div class="grid wide">

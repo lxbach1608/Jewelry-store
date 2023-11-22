@@ -45,11 +45,11 @@ input,
   color: var(--black);
 }
 
-input::-webkit-outer-spin-button,
+/* input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
+} */
 
 ul,
 ol {
@@ -91,6 +91,7 @@ ol {
 .center {
   display: block;
   margin: 0 auto;
+  width: fit-content;
 }
 
 .relative {
@@ -160,6 +161,18 @@ ol {
   font-size: 1.2rem !important;
 }
 
+.block {
+  display: block;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex.justify-between {
+  justify-content: space-between;
+}
+
 .btn {
   /* display: block; */
   font-size: 1.5rem;
@@ -176,8 +189,8 @@ ol {
   text-transform: uppercase;
 }
 
-.btn-m {
-  padding: 6px 15px;
+.btn-full-w {
+  padding: 8px 15px;
 }
 
 .btn + .btn {
@@ -185,7 +198,11 @@ ol {
 }
 
 .btn.btn--active {
-  background-color: #45cfbe;
+  background-color: var(--green);
+}
+
+.btn.btn--active:hover {
+  background-color: var(--primary);
 }
 
 .btn.btn--disabled {
@@ -862,10 +879,11 @@ i[class*="fa-plus"]:hover {
   line-height: 22.5px;
   color: var(--white);
   background-color: var(--black);
-  border-radius: var(--boder-radius-999);
+  border-radius: var(--rounded-full);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.35);
   color: var(--white);
   letter-spacing: 1px;
+  margin-top: 12px;
 }
 
 .add-to-cart-btn:hover {
@@ -889,6 +907,14 @@ tr {
   border-bottom: 1px solid #ccc;
 }
 
+tr:last-child {
+  border: none;
+}
+
+tr th {
+  padding: 10px 15px;
+}
+
 tr td {
   padding: 20px;
 }
@@ -902,41 +928,47 @@ tr td {
   font-weight: 500;
 }
 
-.product-remove {
+td.product-remove {
   width: 5%;
 }
 
-.product-thumbnail {
-  width: 15%;
+td.product-thumbnail a {
+  width: 150px;
   text-align: left;
 }
 
-.product-thumbnail .product-img {
+td.product-thumbnail .product-img {
   width: 100px;
   height: 100px;
 }
 
-.product-name {
-  width: 35%;
+td.product-name {
   text-align: left;
 }
 
-.product-name .title {
+td.product-name .title {
   font-size: 1.5rem;
   font-weight: 500;
 }
 
-.product-price {
-  width: 10%;
-  font-weight: 300;
+th.product-price {
+  font-size: 1.4rem;
+  width: 12%;
 }
 
-.product-quantity {
-  width: 10%;
+td.product-price {
 }
 
-.product-subtotal {
-  width: 10%;
+th.product-quantity {
+  font-size: 1.4rem;
+}
+
+th.product-subtotal {
+  font-size: 1.4rem;
+  width: 12%;
+}
+
+td.product-subtotal {
   font-weight: 600;
 }
 
@@ -994,6 +1026,7 @@ tr td {
 
 .total {
   padding: 20px;
+  margin-top: 30px;
   border: 1px solid #ccc;
 }
 
@@ -1029,6 +1062,68 @@ tr td {
   font-weight: 700;
 }
 
+/* Address */
+.address-item {
+}
+
+.address-select {
+  display: block;
+  height: 40px;
+  padding: 10px 15px;
+  color: #888686;
+  background-color: transparent;
+  border: 1px solid #e1e1e1;
+  border-radius: var(--rounded-full);
+  width: 100%;
+  margin-top: 10px;
+}
+
+.address-wrapper {
+  width: 100%;
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
+
+.address-label {
+  position: relative;
+}
+
+.required.address-label::after {
+  position: absolute;
+  right: -15px;
+  top: 0;
+  content: "*";
+  display: block;
+  color: red;
+}
+
+.address-input {
+  height: 40px;
+  padding: 10px 15px;
+  color: #888686;
+  background-color: transparent;
+  border: 1px solid #e1e1e1;
+  border-radius: var(--rounded-full);
+  width: 100%;
+  margin-top: 10px;
+}
+
+.note-wrapper {
+  padding: 0 10px;
+}
+
+.address-note {
+  display: block;
+  padding: 10px 15px;
+  color: #888686;
+  background-color: transparent;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+/*  */
 .change-address {
   text-decoration: underline;
   color: var(--primary);
@@ -1049,6 +1144,7 @@ tr td {
   display: grid;
   column-gap: 30px;
   grid-template-columns: 685px 487px;
+  margin-bottom: 100px;
 }
 
 .detail-address {
@@ -1077,7 +1173,6 @@ th[class*="product-total"],
 th[class*="product-name"] {
   text-transform: uppercase;
   font-size: 1.4rem;
-  padding: 10px 15px;
 }
 
 .product-total {
@@ -1104,11 +1199,9 @@ tr td[class*="product-name"] {
 }
 
 .product-quantity {
-  font-weight: 700;
 }
 
 .product-total {
-  font-weight: 500;
   line-height: 24px;
 }
 

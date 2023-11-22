@@ -167,8 +167,8 @@
                   <span class="total-price">$ 15.00</span>
                 </div>
                 <div class="cart-wrapper__btn">
-                  <a href="#" class="cart-view btn btn-m fs-14">VIEW CART</a>
-                  <a href="#" class="cart-checkout btn btn-m btn--active fs-14">
+                    <a href="<c:url value="/site/cart" />" class="cart-view btn btn-m fs-14">VIEW CART</a>
+                  <a href="/site/checkout" class="cart-checkout btn btn-m btn--active fs-14">
                       CHECKOUT
                   </a>
                 </div>
