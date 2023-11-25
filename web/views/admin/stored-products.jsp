@@ -231,7 +231,7 @@
                     </td>
                     <td class="py-2 px-4">
                       <span class="text-sm text-center block font-bold"
-                        >${product.formattedPrice(product.getSalePrice())}
+                        >$0
                       </span>
                     </td>
                     <td class="py-2 px-4">
@@ -292,6 +292,7 @@
                           </p>
                         </button>
                         <button
+                          data-id="${product.getProductId()}"
                           class="delete-btn p-2 cursor-pointer text-gray-400"
                         >
                           <p class="text-xl">
@@ -881,6 +882,61 @@
               </div>
             </button>
           </form>
+        </div>
+      </div>
+    </div>
+            
+    <!-- Delete Product model -->
+    <div
+      id="product-delete-model"
+      class="flex items-center justify-center z-10 fixed inset-x-0 inset-y-0 bg-gray-900/70 hidden"
+    >
+      <div class="model bg-slate-100 w-2/6 rounded-lg">
+        <div class="flex flex-col items-center justify-center p-10">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="1em"
+              viewBox="0 0 512 512"
+              fill="#f43f5e"
+              class="text-3xl"
+            >
+              <path
+                d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"
+              />
+            </svg>
+          </div>
+
+          <div>
+            <p class="font-bold text-xl py-4">Are you sure ?</p>
+          </div>
+
+          <div>
+            <p class="font-medium py-4 text-slate-500 text-center mb-2">
+              This action can not be undone. All values associated with this
+              field will be lost
+            </p>
+          </div>
+
+          <div class="w-full text-center">
+            <form action="<c:url value="/products/delete" />" name="delete-form" method="POST">
+                <input type="hidden" name="productId" value="">
+                <button
+                type="submit"
+                class="confirm-delete-btn bg-red-500 text-white w-full py-2 rounded-md mb-4 font-semibold"
+                >
+                Delete product
+              </button>
+            </form>
+          </div>
+
+          <div class="w-full text-center">
+            <button
+              class="cancel-btn w-full py-2 rounded-md mb-4 font-semibold border-solid border-2 border-gray-300"
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     </div>

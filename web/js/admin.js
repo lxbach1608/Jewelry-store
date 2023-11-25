@@ -1,12 +1,48 @@
 document.addEventListener("DOMContentLoaded", function(e) {
-    const insertModel = $("#product-insert-model");
+    
+    // Delete model
+    const deleteModel = $("#product-delete-model");
+    
+    const cancelBtn = $(".cancel-btn");
+    
+    const deleteBtns = $(".delete-btn");
+    
+    cancelBtn.click((e) => {
+        deleteModel.addClass("hidden");
+    });
+
+    deleteBtns.click((e) => {
+        deleteModel.removeClass("hidden");
+    });
+    
+    // handle delete    
+    
+    let productId;
+    
+    const deleteForm = $("form[name*='delete-form']");
+    
+    deleteBtns.click((e) => {
+        productId = e.currentTarget.attributes["data-id"].value;
+    });
+    
+    
+    $(".confirm-delete-btn").click((e) => {
+        $("input[name*='productId']").val(productId);
+        deleteForm.submit();
+    });
+    
+    
+    
+    //    
+    
+  const insertModel = $("#product-insert-model");
   const editModel = $("#product-edit-model");
 
   const closeBtns = $(".close-btn");
 
   const editBtns = $(".edit-btn");
   const addBtn = $(".add-btn");
-
+  
   const rootHandle = $(".root-category-handle");
 
   const parentHandles = $(".parent-category-handle");
@@ -50,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
       <path
         d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
       />
-    </svg>`,
+    </svg>`
   };
 
   // root category display category-list
@@ -62,8 +98,6 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
   // parent display children
   $(".parent-category-handle").on("click", function (e) {
-    // console.log($(this));
-
     var sibling = $(this).next(".child-category-handle");
 
     if (sibling.hasClass("hidden")) {
@@ -117,4 +151,6 @@ document.addEventListener("DOMContentLoaded", function(e) {
       cbInput.attr("checked", true);
     }
   });
+  
+
 });

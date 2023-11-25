@@ -1,10 +1,8 @@
 package store.controllers;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import store.business.Category;
 import store.business.Colour;
@@ -12,7 +10,6 @@ import store.business.Colour;
 import store.data.ProductDB;
 import store.business.Product;
 import store.business.Size;
-import store.data.CategoryDB;
 import store.data.ColourDB;
 import store.data.SizeDB;
 
@@ -24,16 +21,24 @@ public class ProductController extends HttpServlet {
         
         System.out.println("in do post product controller");
         
-        String url = "/admin/stored/products";
-        
         String requestURI = request.getRequestURI();
         
         if(requestURI.endsWith("/products/create")) {
             create(request, response);
         }
+        
+        if(requestURI.endsWith("/products/update")) {
+//            create(request, response);
+        }
+        
+        if(requestURI.endsWith("/products/delete")) {
+            delete(request, response);
+        }
+        
 
         String rootPath = getServletContext().getContextPath();
-        
+        String url = "/admin/stored/products";
+
         response.sendRedirect(rootPath + url);
 
     }
@@ -63,15 +68,6 @@ public class ProductController extends HttpServlet {
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
     
-    private void show(HttpServletRequest request, HttpServletResponse response) {
-        
-        HttpSession session = request.getSession();
-        
-        List<Product> products = ProductDB.selectProducts();
-        
-        session.setAttribute("products", products);
-    }
-
     private String shopShow(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         
@@ -105,51 +101,23 @@ public class ProductController extends HttpServlet {
         String slug = request.getParameter("slug");
         String[] selectedCategoriesInput = request.getParameterValues("categories");
         
-        double price = Double.parseDouble(priceInput);
-        double salePrice = Double.parseDouble(salePriceInput);
-        int sizeId = Integer.parseInt(sizeInput);
-        int colorId = Integer.parseInt(colorInput);
-
-
+        double price = 0;
+        double salePrice = 0;
+        int sizeId = 0;
+        int colorId = 0;
+         
+        try {
+            price = Double.parseDouble(priceInput);
+            salePrice = Double.parseDouble(salePriceInput);
+            sizeId = Integer.parseInt(sizeInput);
+            colorId = Integer.parseInt(colorInput);
+        } catch(NumberFormatException ex) {
+            System.out.println(ex);
+        }
         
-//        
-//        List<Category> listSelectedCategory = new ArrayList<Category>();
-//
-//        try
-//        {
-//            for(String value : selectedCategory)
-//            {
-//                long id = Long.parseLong(value);
-//                
-//                Category c = CategoryDB.selectCategory(id);
-//                
-//                listSelectedCategory.add(c);
-//            }
-//        }
-//        catch(NullPointerException ex)
-//        {
-//            System.out.println(ex);
-//        }
-//
-//
-//        try {
-//            size = sizeInput.endsWith(".0") ? SizeDB.selectSize((int)sizeValue) : SizeDB.selectSize(sizeValue);
-//        } catch(Exception e) {
-//            System.out.println("Error in get Size instant");
-//        }
-//        
-//        try {
-//            color = ColourDB.selectColor(colorInput);
-//        } catch(Exception e) {
-//            System.out.println("Error in get Colour instant");
-//        }
-
         Size sizeInstance = null;
         Colour colorInstance = null;
         List<Category> selectedCategories = Category.convertToCategories(selectedCategoriesInput);
-
-
-        
 
         try {
             sizeInstance = SizeDB.selectSize(sizeId);
@@ -159,13 +127,13 @@ public class ProductController extends HttpServlet {
         }
 
         Product p = new Product();
+        
         p.setName(name);
         p.setDesciption(description);
         p.setColor(colorInstance);
         p.setSize(sizeInstance);
         p.setImageUrl(imageUrl);
         p.setPrice(price);
-        p.setSalePrice(salePrice);
         p.setSlug(slug);
         p.setCategory(selectedCategories);
         
@@ -197,10 +165,14 @@ public class ProductController extends HttpServlet {
     private void delete(HttpServletRequest request, HttpServletResponse response) {
          String productId = request.getParameter("productId");
          
+        System.out.println("productId " + productId);
+         
         long id = Long.parseLong(productId);
         
         Product p = ProductDB.selectProduct(id);
         
+        System.out.println("product: " + p);
+
         ProductDB.delete(p);
     }
 }

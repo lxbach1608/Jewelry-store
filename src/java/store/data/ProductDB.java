@@ -81,17 +81,15 @@ public class ProductDB {
         }
     }
     
-    
-    
-    public static Product selectProduct(String code) {
+    public static Product selectProduct(long id) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         String qString = "SELECT p FROM Product p " +
-                        "WHERE p.code = :code";
+                        "WHERE p.productId = :id";
         
         TypedQuery<Product> q = em.createQuery(qString, Product.class);
         
-        q.setParameter("code", code);
+        q.setParameter("id", id);
         
         Product result = null;
         
@@ -108,12 +106,6 @@ public class ProductDB {
         
         return (Product)result;
 
-    }
-    
-    public static Product selectProduct(long productId) {
-        EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        
-        return em.find(Product.class, productId);
     }
     
     public static List<Product> selectProducts() {

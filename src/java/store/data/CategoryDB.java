@@ -67,12 +67,6 @@ public class CategoryDB {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         String query = "SELECT c FROM Category c ";
-//        String str2 = null;
-     
-//        if(type.equals("parents")) str2 = "WHERE c.parentId = 0 ";
-//        if(type.equals("children")) str2 = "WHERE c.parentId != 0 ";
-//        
-//        String query = str1.concat(str2);
         
         TypedQuery<Category> q = em.createQuery(query, Category.class);
         

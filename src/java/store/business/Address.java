@@ -16,13 +16,44 @@ public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long addressId;
+    
+    private String addressLine;
+
+    
+    
+    private String city;
+    
+    private String region;
 
     public Long getAddressId() {
         return addressId;
+    }
+    
+    public String getAddressLine() {
+        return addressLine;
+    }
+
+    public void setAddressLine(String addressLine) {
+        this.addressLine = addressLine;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public void setAddressId(Long addressId) {
         this.addressId = addressId;
     }
-    
 }

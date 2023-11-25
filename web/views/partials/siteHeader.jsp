@@ -42,9 +42,6 @@
     <!-- main.css -->
     <link rel="stylesheet" href="<c:url value="/public/css/main.css"/>" />
     
-    <!-- productDetails.css -->
-    <!--<link rel="stylesheet" href="<c:url value="/public/css/productDetails.css"/>" />-->
-    
 </head>
 <body>
     <header id="header">
@@ -92,10 +89,12 @@
             </div>
           </div>
           <div class="sub-header__img">
-            <img
-              class="store-img"
-              src="https://mldrbgfat3wx.i.optimole.com/SQPHnU0-EcAQxbrb/w:954/h:185/q:auto/https://dici.themes.zone/main/wp-content/uploads/sites/8/2019/04/DC_Logo_New_opt.png"
-            />
+            <a href="<c:url value="/products/show" />">
+              <img
+                  class="store-img"
+                  src="https://mldrbgfat3wx.i.optimole.com/SQPHnU0-EcAQxbrb/w:954/h:185/q:auto/https://dici.themes.zone/main/wp-content/uploads/sites/8/2019/04/DC_Logo_New_opt.png"
+              />
+            </a>
           </div>
           <div class="sub-header__action">
             <!-- Search -->
@@ -171,7 +170,7 @@
                 </div>
                 <div class="cart-wrapper__btn">
                     <a href="<c:url value="/site/cart" />" class="cart-view btn btn-m fs-14">VIEW CART</a>
-                  <a href="/site/checkout" class="cart-checkout btn btn-m btn--active fs-14">
+                  <a href="<c:url value="/site/checkout" />" class="cart-checkout btn btn-m btn--active fs-14">
                       CHECKOUT
                   </a>
                 </div>

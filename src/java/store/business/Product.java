@@ -18,13 +18,12 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long productId;
     
-    
-    @OneToOne
+    @Id
     private Size size;
     
-    @OneToOne
+    @Id
     private Colour color;
-    
+//    
     @OneToMany
     private List<Category> category;
 
@@ -41,7 +40,6 @@ public class Product implements Serializable {
     private String desciption;
     private String imageUrl;
     private double price;
-    private double salePrice;
     private String slug;
     
     public Product() {}
@@ -113,16 +111,6 @@ public class Product implements Serializable {
         this.slug = slug;
     }
     
-    public double getSalePrice() {
-        return salePrice;
-    }
-
-    public void setSalePrice(double salePrice) {
-        this.salePrice = salePrice;
-    }
-    
-    
-    // Function
     public String formattedPrice(double price) {
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
         

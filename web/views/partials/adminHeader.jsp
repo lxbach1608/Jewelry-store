@@ -20,7 +20,6 @@
       crossorigin="anonymous"
     ></script>
     
-    <script src="<c:url value="/js/admin.js" />"></script>
 
 </head>
 <body>
