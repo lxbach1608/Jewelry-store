@@ -13,23 +13,38 @@ import javax.persistence.OneToOne;
 
 
 @Entity
-public class ProductItem implements Serializable {
+public class Inventory implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long productItemId;
+    private Long inventoryId;
     
     @OneToOne
     private Product product;
     
     private int quantityInStock;
 
-    public Long getProductItemId() {
-        return productItemId;
+    public Long getInventoryId() {
+        return inventoryId;
     }
 
-    public void setProductItemId(Long productItemId) {
-        this.productItemId = productItemId;
+    public void setInventoryId(Long inventoryId) {
+        this.inventoryId = inventoryId;
     }
-    
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public int getQuantityInStock() {
+        return quantityInStock;
+    }
+
+    public void setQuantityInStock(int quantityInStock) {
+        this.quantityInStock = quantityInStock;
+    }
 }

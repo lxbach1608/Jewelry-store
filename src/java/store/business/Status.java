@@ -13,6 +13,8 @@ public class Status {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long statusId;
+    
+    private String status;
 
     public Long getStatusId() {
         return statusId;
@@ -29,8 +31,4 @@ public class Status {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-    private String status;
-    
-    
 }

@@ -32,7 +32,12 @@ public class Order implements Serializable {
     @OneToMany
     private List<LineItem> lines;
     
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date orderDate;
+
+    private String note;
     
+    private double total;
 
     public Long getOrderId() {
         return orderId;
@@ -42,5 +47,53 @@ public class Order implements Serializable {
         this.orderId = orderId;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public List<LineItem> getLines() {
+        return lines;
+    }
+
+    public void setLines(List<LineItem> lines) {
+        this.lines = lines;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+    
     
 }

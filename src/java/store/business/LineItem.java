@@ -20,13 +20,13 @@ public class LineItem implements Serializable {
     private Long lineItemId;
     
     @OneToOne
-    private ProductItem productItem;
+    private Inventory productItem;
 
-    public ProductItem getProductItem() {
+    public Inventory getProductItem() {
         return productItem;
     }
 
-    public void setProductItem(ProductItem productItem) {
+    public void setProductItem(Inventory productItem) {
         this.productItem = productItem;
     }
     
