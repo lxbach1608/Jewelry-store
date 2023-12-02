@@ -34,6 +34,29 @@ public class InventoryDB {
         }
     }
     
+    public static void update(Inventory i) {
+        
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        EntityTransaction trans = em.getTransaction();
+        
+        trans.begin();
+
+        try {
+            em.merge(i);
+            
+            trans.commit();
+        }
+        catch(Exception ex) {
+            System.out.println(ex);
+            
+            trans.rollback();
+        }
+        finally {
+            em.close();
+        }
+    }
+    
     public static List<Inventory> selectInventories() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
 

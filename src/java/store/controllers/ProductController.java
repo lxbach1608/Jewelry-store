@@ -82,7 +82,6 @@ public class ProductController extends HttpServlet {
         return "/views/products/details.jsp";
     }
     
-    
     private void create(HttpServletRequest request, HttpServletResponse response) {
         
         String name = request.getParameter("name");
@@ -145,29 +144,29 @@ public class ProductController extends HttpServlet {
     }
     
     private void update(HttpServletRequest request, HttpServletResponse response) {
-        String idInput = request.getParameter("productId");
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String priceInput = request.getParameter("price");
-        String sizeInput = request.getParameter("size");
-        String colorInput = request.getParameter("color");
-        String imageUrl = request.getParameter("imageUrl");
-        String quantityInStockInput = request.getParameter("quantityInStock");
-        String slug = request.getParameter("slug");
+        String idInput = request.getParameter("form-id");
+        String name = request.getParameter("form-name");
+        String description = request.getParameter("form-desc");
+        String priceInput = request.getParameter("form-price");
+//        String sizeInput = request.getParameter("size");
+//        String colorInput = request.getParameter("color");
+        String imageUrl = request.getParameter("form-imgUrl");
+        String quantityInput = request.getParameter("form-quantity");
+        String slug = request.getParameter("form-slug");
         String[] selectedCategoriesInput = request.getParameterValues("categories");
         
+        long id = 0;
         double price = 0;
         int sizeId = 0;
         int colorId = 0;
-        int quantityInStock = 0;
-        int id = 0;
+        int quantity = 0;
          
         try {
+            id = Long.parseLong(idInput);
             price = Double.parseDouble(priceInput);
-            sizeId = Integer.parseInt(sizeInput);
-            colorId = Integer.parseInt(colorInput);
-            quantityInStock = Integer.parseInt(quantityInStockInput);
-            id = Integer.parseInt(idInput);
+//            sizeId = Integer.parseInt(sizeInput);
+//            colorId = Integer.parseInt(colorInput);
+            quantity = Integer.parseInt(quantityInput);
         } catch(NumberFormatException ex) {
             System.out.println(ex);
         }
@@ -177,28 +176,30 @@ public class ProductController extends HttpServlet {
         List<Category> selectedCategories = Category.convertToCategories(selectedCategoriesInput);
 
         try {
-            sizeInstance = SizeDB.selectSize(sizeId);
-            colorInstance = ColourDB.selectColor(colorId);
+//            sizeInstance = SizeDB.selectSize(sizeId);
+//            colorInstance = ColourDB.selectColor(colorId);
         } catch(Exception ex) {
             System.out.println("Can't not get sizeIntance or colorInstance");
         }
-
-        Product p = new Product();
+        
+        Product p = ProductDB.selectProduct(id);
+        
+        Product inventory_p = p;
+        Inventory inventory = InventoryDB.selectInventory(inventory_p);
+        
+        inventory.setQuantityInStock(quantity);
+        
+        InventoryDB.update(inventory);
         
         p.setName(name);
         p.setDescription(description);
-        p.setColor(colorInstance);
-        p.setSize(sizeInstance);
+//        p.setColor(colorInstance);
+//        p.setSize(sizeInstance);
         p.setImageUrl(imageUrl);
         p.setPrice(price);
         p.setSlug(slug);
-        p.setCategory(selectedCategories);
         
-        ProductDB.insert(p);
-        
-        Inventory i = new Inventory();
-        i.setQuantityInStock(quantityInStock);
-        i.setProduct(p);
+//        p.setCategory(selectedCategories);
         
         ProductDB.update(p);
     }

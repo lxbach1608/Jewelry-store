@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
         slug = $(parent[0]).children("input[name*='_slug']").val();
         quantity = $(parent[0]).children("input[name*='_quantity']").val();
         
+        $("input[name*='form-id']").val(id);
         $("input[name*='form-name']").val(name);
         $("textarea[name*='form-desc']").val(desc);
         $("input[name*='form-imgUrl']").val(imgUrl);
