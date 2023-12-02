@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package store.data;
 
 import java.util.List;
@@ -10,7 +7,6 @@ import store.business.Colour;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
-import store.business.Size;
 
 public class ColourDB {
     public static List<Colour> selectColors() {

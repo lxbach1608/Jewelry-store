@@ -13,57 +13,71 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
     deleteBtns.click((e) => {
         deleteModel.removeClass("hidden");
+        productId = e.currentTarget.attributes["data-id"].value;
+        
+        $("input[name*='delete-form-productId']").val(productId);
     });
     
-    // handle delete    
     
+    // handle delete    
     let productId;
     
     const deleteForm = $("form[name*='delete-form']");
     
-    deleteBtns.click((e) => {
-        productId = e.currentTarget.attributes["data-id"].value;
-    });
-    
-    
     $(".confirm-delete-btn").click((e) => {
-        $("input[name*='productId']").val(productId);
         deleteForm.submit();
     });
     
     
     
-    //    
+    // handle update
+    const editModel = $("#product-edit-model");
     
-  const insertModel = $("#product-insert-model");
-  const editModel = $("#product-edit-model");
 
-  const closeBtns = $(".close-btn");
+    const editBtns = $(".edit-btn");
+    
+    editBtns.click(function (e) {
+        const parent = $(this).parent();
 
-  const editBtns = $(".edit-btn");
-  const addBtn = $(".add-btn");
-  
-  const rootHandle = $(".root-category-handle");
+        id = $(parent[0]).children("input[name*='_productId']").val();
+        name = $(parent[0]).children("input[name*='_name']").val();
+        desc = $(parent[0]).children("input[name*='_desc']").val();
+        size = $(parent[0]).children("input[name*='_size']").val();
+        color = $(parent[0]).children("input[name*='_color']").val();
+        imgUrl = $(parent[0]).children("input[name*='_imgUrl']").val();
+        price = $(parent[0]).children("input[name*='_price']").val();
+        slug = $(parent[0]).children("input[name*='_slug']").val();
+        quantity = $(parent[0]).children("input[name*='_quantity']").val();
+        
+        $("input[name*='form-name']").val(name);
+        $("textarea[name*='form-desc']").val(desc);
+        $("input[name*='form-imgUrl']").val(imgUrl);
+        $("input[name*='form-price']").val(price);
+        $("input[name*='form-slug']").val(slug);
+        $("input[name*='form-quantity']").val(quantity);
+        
+        $("._img-demo").attr("src", imgUrl);
 
-  const parentHandles = $(".parent-category-handle");
-  const childHandles = $(".child-category-handle");
+        editModel.removeClass("hidden");
+    });
+    
+    
+    // Handle insert    
+    const insertModel = $("#product-insert-model");
 
-  const imageUrlInput = $("input[name=imageUrl]");
+    const closeBtns = $(".close-btn");
+    const addBtn = $(".add-btn");
+    
+    closeBtns.click(function (e) {
+        editModel.addClass("hidden");
+        insertModel.addClass("hidden");
+    });
+    
+    addBtn.click(function (e) {
+        insertModel.removeClass("hidden");
+    });
 
-  // model open/close
-  closeBtns.click(function (e) {
-    editModel.addClass("hidden");
-    insertModel.addClass("hidden");
-  });
-
-  editBtns.click(function (e) {
-    editModel.removeClass("hidden");
-  });
-
-  addBtn.click(function (e) {
-    insertModel.removeClass("hidden");
-  });
-
+//  Handle category
   const categoryIcons = {
     caretDown: `<svg
       class="parent-category w-5"
@@ -90,11 +104,16 @@ document.addEventListener("DOMContentLoaded", function(e) {
   };
 
   // root category display category-list
-  rootHandle.click(function (e) {
-    $(".category-list").hasClass("hidden")
-      ? $(".category-list").removeClass("hidden")
-      : $(".category-list").addClass("hidden");
-  });
+    const rootHandle = $(".root-category-handle");
+
+    const parentHandles = $(".parent-category-handle");
+    const childHandles = $(".child-category-handle");
+    
+    rootHandle.click(function (e) {
+      $(".category-list").hasClass("hidden")
+        ? $(".category-list").removeClass("hidden")
+        : $(".category-list").addClass("hidden");
+    });
 
   // parent display children
   $(".parent-category-handle").on("click", function (e) {
@@ -108,19 +127,37 @@ document.addEventListener("DOMContentLoaded", function(e) {
   });
 
   // imageUrl input
-  const imgDemo = $(".img-demo");
+    const imageUrlInput = $("input[name=imageUrl]");
+    const imageUrlInputUpdate = $("input[name=form-imgUrl]");
 
-  imageUrlInput.on("change", function (e) {
-    imgDemo.attr("src", e.target.value);
+    const imgDemo = $(".img-demo");
+    const imgDemoUpdate = $("._img-demo");
 
-    imgDemo.on("error", function (e) {
-      $(".close-img").addClass("hidden");
+    // insert
+    imageUrlInput.on("change", function (e) {
+        imgDemo.attr("src", e.target.value);
+
+        imgDemo.on("error", function (e) {
+            $(".close-img").addClass("hidden");
+        });
+
+        imgDemo.on("load", function (e) {
+          $(".close-img").removeClass("hidden");
+        });
     });
+    
+    // update
+    imageUrlInputUpdate.on("change", function (e) {
+        imgDemoUpdate.attr("src", e.target.value);
 
-    imgDemo.on("load", function (e) {
-      $(".close-img").removeClass("hidden");
+        imgDemoUpdate.on("error", function (e) {
+            $(".close-img").addClass("hidden");
+        });
+
+        imgDemoUpdate.on("load", function (e) {
+          $(".close-img").removeClass("hidden");
+        });
     });
-  });
 
   $(".close-img").click(function (e) {
     imgDemo.attr("src", "");
@@ -132,12 +169,21 @@ document.addEventListener("DOMContentLoaded", function(e) {
   }); 
 
   // product input
-  const nameInput = $("input[name=name]");
-  const slugInput = $("input[name=slug]");
+    const nameInput = $("input[name=name]");
+    const nameInputUpdate = $("input[name=form-name]");
+    
+    const slugInput = $("input[name=slug]");
+    const slugInputUpdate = $("input[name=form-slug]");
+
 
   nameInput.on("change", function (e) {
     var str = e.target.value;
     slugInput.val(str.replaceAll(" ", "-"));
+  });
+  
+  nameInputUpdate.on("change", function (e) {
+    var strUpdate = e.target.value;
+    slugInputUpdate.val(strUpdate.replaceAll(" ", "-"));
   });
   
   // handle checkbox categories

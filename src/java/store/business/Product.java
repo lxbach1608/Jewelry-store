@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import store.data.InventoryDB;
 
 
 @Entity
@@ -25,7 +26,22 @@ public class Product implements Serializable {
 
     @OneToMany
     private List<Category> category;
+    private String name;
+    private String imageUrl;
+    private String description;
+    private double price;
+    private String slug;
+    
+    public Product() {}
+    
+    public String getDescription() {
+        return description;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
     public List<Category> getCategory() {
         return category;
     }
@@ -33,19 +49,7 @@ public class Product implements Serializable {
     public void setCategory(List<Category> category) {
         this.category = category;
     }
-
     
-    private String name;
-    private String desciption;
-    private String imageUrl;
-    private double price;
-    private String slug;
-    
-    public Product() {}
-    
-    
-    
-
     public Long getProductId() {
         return productId;
     }
@@ -78,14 +82,6 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public String getDesciption() {
-        return desciption;
-    }
-
-    public void setDesciption(String desciption) {
-        this.desciption = desciption;
-    }
-
     public double getPrice() {
         return price;
     }
@@ -108,6 +104,17 @@ public class Product implements Serializable {
 
     public void setSlug(String slug) {
         this.slug = slug;
+    }
+    
+    public int getQuantity() {
+        int quantity = 0;
+        
+        Inventory inventory = InventoryDB.selectInventory(this);
+        
+        
+        quantity = inventory.getQuantityInStock();
+        
+        return quantity;
     }
     
     public String formattedPrice(double price) {

@@ -15,7 +15,7 @@ import store.business.Product;
 public class SizeDB {
     
     public static List<Size> selectSizes() {
-        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+       EntityManager em = DBUtil.getEmFactory().createEntityManager();
 
        String query = "SELECT s FROM Size s";
 

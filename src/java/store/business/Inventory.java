@@ -47,4 +47,5 @@ public class Inventory implements Serializable {
     public void setQuantityInStock(int quantityInStock) {
         this.quantityInStock = quantityInStock;
     }
+    
 }

@@ -187,14 +187,14 @@
                     <th class="py-2 px-4">
                       <input type="checkbox" />
                     </th>
-                    <th class="py-2 px-4">ID</th>
+                    <th class="py-2 px-4 text-center">ID</th>
                     <th class="py-2 px-4 w-64">PRODUCT NAME</th>
+                    <th class="py-2 px-4 text-center">COLOR</th>
+                    <th class="py-2 px-4 text-center">SIZE</th>
                     <th class="py-2 px-4 w-36">CATEGORY</th>
                     <th class="py-2 px-4 text-center">PRICE</th>
-                    <th class="py-2 px-4 text-center">SALE PRICE</th>
                     <th class="py-2 px-4 text-center">STOCK</th>
                     <th class="py-2 px-4 text-center">STATUS</th>
-                    <th class="py-2 px-4 text-center">VIEW</th>
                     <th class="py-2 px-4 w-28 text-center">ACTIONS</th>
                   </tr>
                 </thead>
@@ -204,7 +204,7 @@
                     <td class="py-2 px-4">
                       <input type="checkbox" />
                     </td>
-                    <td class="py-2 px-4">${product.getProductId()}</td>
+                    <td class="py-2 px-4 text-center">${product.getProductId()}</td>
                     <td class="py-2 px-4">
                       <div class="flex items-center">
                         <div class="w-8 h-8 mr-2">
@@ -219,6 +219,16 @@
                         </span>
                       </div>
                     </td>
+                    <td class="py-2 px-4 text-center">
+                      <span class="text-sm text-center font-medium"
+                        >Gold</span
+                      >
+                    </td>
+                    <td class="py-2 px-4 text-center">
+                      <span class="text-sm text-center font-medium"
+                        >16.0</span
+                      >
+                    </td>
                     <td class="py-2 px-4">
                       <span class="text-sm text-center font-medium"
                         >Bracelet</span
@@ -230,12 +240,7 @@
                       </span>
                     </td>
                     <td class="py-2 px-4">
-                      <span class="text-sm text-center block font-bold"
-                        >$0
-                      </span>
-                    </td>
-                    <td class="py-2 px-4">
-                      <span class="text-sm text-center block">30</span>
+                      <span class="text-sm text-center block font-bold">${product.getQuantity()}</span>
                     </td>
                     <td class="py-2 px-4">
                       <span
@@ -243,30 +248,17 @@
                         >Selling</span
                       >
                     </td>
-                    <td class="py-2 px-4">
-                      <a href="#">
-                        <p class="flex justify-center items-center text-xl">
-                          <svg
-                            stroke="currentColor"
-                            fill="none"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            height="1em"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                            <line x1="11" y1="8" x2="11" y2="14"></line>
-                            <line x1="8" y1="11" x2="14" y2="11"></line>
-                          </svg>
-                        </p>
-                      </a>
-                    </td>
                     <td class="py-2 px-4 text-center">
                       <div>
+                        <input type="hidden" name="_productId" value="${product.getProductId()}">
+                        <input type="hidden" name="_name" value="${product.getName()}">
+                        <input type="hidden" name="_desc" value="${product.getDescription()}">
+                        <input type="hidden" name="_size" value="${product.getSize().getSize()}">
+                        <input type="hidden" name="_color" value="${product.getColor().getColor()}">
+                        <input type="hidden" name="_imgUrl" value="${product.getImageUrl()}">
+                        <input type="hidden" name="_price" value="${product.getPrice()}">
+                        <input type="hidden" name="_slug" value="${product.getSlug()}">
+                        <input type="hidden" name="_quantity" value="${product.getQuantity()}">
                         <button
                           class="edit-btn p-2 cursor-pointer text-gray-400"
                         >
@@ -353,7 +345,7 @@
                       </span>
                     </td>
                     <td class="py-2 px-4">
-                      <span class="text-sm text-center block">30</span>
+                      <span class="text-sm text-center block"></span>
                     </td>
                     <td class="py-2 px-4">
                       <span
@@ -386,6 +378,7 @@
 
                     <td class="py-2 px-4 text-center">
                       <div>
+                        
                         <button
                           class="edit-btn p-2 cursor-pointer text-gray-400"
                         >
@@ -812,7 +805,7 @@
             </div>
 
             <!-- Sale Price -->
-            <div class="grid grid-cols-6 gap-6 mb-6">
+<!--            <div class="grid grid-cols-6 gap-6 mb-6">
               <label for="" class="text-slate-400 text-sm">Product Price</label>
               <div class="flex flex-row col-span-4 col-start-3">
                 <span
@@ -826,7 +819,7 @@
                   placeholder="Sale Price"
                 />
               </div>
-            </div>
+            </div>-->
             
             <!--Quantity-->
             <div class="grid grid-cols-6 gap-6 mb-6">
@@ -886,6 +879,342 @@
       </div>
     </div>
             
+    <!--Update Product model-->   
+    <div
+      id="product-edit-model"
+      class="flex items-start justify-end z-10 fixed inset-x-0 inset-y-0 bg-gray-900/70 hidden"
+    >
+      <div class="model bg-gray-800 h-screen" style="width: 85%">
+        <div>
+          <!-- Header -->
+          <div class="flex items-center justify-between p-6">
+            <div class="">
+              <h4 class="text-gray-300 text-xl">Update Product</h4>
+              <p class="text-gray-300 text-sm">
+                Update products info, combinations and extras.
+              </p>
+            </div>
+
+            <div class="flex items-center">
+              <button
+                class="close-btn focus:outline-none text-red-500 hover:bg-red-100 hover:text-gray-700 transition-colors duration-150 bg-white shadow-md w-10 h-10 rounded-full block text-center"
+              >
+                <svg
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mx-auto"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- body -->
+        <div class="bg-gray-700 h-screen overflow-scroll">
+            <form action="<c:url value="/products/update"/>" method="POST" class="px-6 pt-8 pb-44">
+            <!-- Product title -->
+            <div class="grid grid-cols-6 gap-6 mb-6">
+              <label for="" class="text-slate-400 text-sm"
+                >Product Title/Name</label
+              >
+              <div class="col-span-4 col-start-3">
+                <input
+                  type="text"
+                  name="form-name"
+                  class="w-full h-12 px-3 py-1 text-sm text-gray-300 leading-5 border border-gray-600 rounded-md bg-gray-700 focus:outline-none focus:border-gray-500"
+                  placeholder="Product Title/Name"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Product desc -->
+            <div class="grid grid-cols-6 gap-6 mb-6">
+              <label for="" class="text-slate-400 text-sm"
+                >Update Product</label
+              >
+              <div class="col-span-4 col-start-3">
+                <textarea
+                  name="form-desc"
+                  type="text"
+                  class="w-full h-24 p-3 text-sm text-gray-300 leading-5 border border-gray-600 rounded-md bg-gray-700 focus:outline-none focus:border-gray-500"
+                  placeholder="Product Description"
+                  required
+                ></textarea>
+              </div>
+            </div>
+            
+            <!-- Product size -->
+            <div class="grid grid-cols-6 gap-6 mb-6">
+              <label for="" class="text-slate-400 text-sm">Product Size</label>
+              <div class="col-span-4 col-start-3">
+                <select name="size">
+                    <c:forEach var="size" items="${sizes}">
+                        <option value="${size.getSizeId()}">${size.getSize()}</option>
+                    </c:forEach>
+                </select>
+              </div>
+            </div>
+
+            <!-- Product color -->
+            <div class="grid grid-cols-6 gap-6 mb-6">
+              <label for="" class="text-slate-400 text-sm">Product Color</label>
+              <div class="col-span-4 col-start-3">
+                <select name="color">
+                    <c:forEach var="color" items="${colors}">
+                      <option value="${color.getColorId()}">${color.getColor()}</option>
+                    </c:forEach>
+                </select>
+              </div>
+            </div>
+
+            <!-- Product images -->
+            <div class="grid grid-cols-6 gap-6 mb-6">
+              <label for="" class="text-slate-400 text-sm"
+                >Product Images</label
+              >
+              <div class="col-span-4 col-start-3">
+                <div class="col-span-4 col-start-3">
+                  <input
+                    type="text"
+                    name="form-imgUrl"
+                    class="w-full h-12 px-3 py-1 text-sm text-gray-300 leading-5 border border-gray-600 rounded-md bg-gray-700 focus:outline-none focus:border-gray-500"
+                    placeholder="Image URL"
+                    required
+                  />
+                </div>
+
+                <!-- image demo -->
+                <div class="flex flex-row mt-4 space-x-2">
+                  <!-- items -->
+                  <div class="">
+                    <div draggable="true">
+                      <div class="relative">
+                        <img
+                          class="_img-demo w-24 max-h-24 p-2 m-2 border border-md border-gray-600"
+                          src=""
+                          alt=""
+                        />
+                        <p
+                          class="absolute w-full py-1 text-xs text-white text-center inset-x-0 bottom-0 rounded-full bg-blue-500"
+                        >
+                          Default image
+                        </p>
+                        <button
+                          type="button"
+                          class="absolute -top-2 right-0 text-red-500 focus:outline-none"
+                        >
+                          <svg
+                            class="close-img"
+                            stroke="currentColor"
+                            fill="none"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            height="1em"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product category -->
+            <div class="grid grid-cols-6 gap-6 mb-6">
+              <label for="" class="text-slate-400 text-sm"
+                >Product Category</label
+              >
+              <div class="col-span-4 col-start-3">
+                <input
+                  type="text"
+                  class="category-input w-full h-12 px-3 py-1 text-sm text-gray-300 leading-5 border border-gray-600 rounded-md bg-gray-700 focus:outline-none focus:border-gray-500"
+                  placeholder="Product Categories"
+                />
+                <div class="root-category-handle flex items-center mt-3">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="1em"
+                    viewBox="0 0 576 512"
+                    class=""
+                    fill="#6366f1"
+                  >
+                    <path
+                      d="M64 32C64 14.3 49.7 0 32 0S0 14.3 0 32v96V384c0 35.3 28.7 64 64 64H256V384H64V160H256V96H64V32zM288 192c0 17.7 14.3 32 32 32H544c17.7 0 32-14.3 32-32V64c0-17.7-14.3-32-32-32H445.3c-8.5 0-16.6-3.4-22.6-9.4L409.4 9.4c-6-6-14.1-9.4-22.6-9.4H320c-17.7 0-32 14.3-32 32V192zm0 288c0 17.7 14.3 32 32 32H544c17.7 0 32-14.3 32-32V352c0-17.7-14.3-32-32-32H445.3c-8.5 0-16.6-3.4-22.6-9.4l-13.3-13.3c-6-6-14.1-9.4-22.6-9.4H320c-17.7 0-32 14.3-32 32V480z"
+                    />
+                  </svg>
+                  <h3
+                    class="py-1 cursor-pointer select-none font-bold ml-2 text-indigo-400"
+                  >
+                    Categories
+                  </h3>
+                </div>
+                <ul class="category-list ml-4 hidden">
+                <c:forEach var="category" items="${categories}">
+                <c:if test="${category.getParentId() == null}">
+                    <li class="font-semibold mb-1">
+                    <input
+                      type="checkbox"
+                      name="categories"
+                      value=""
+                      class="hidden"
+                    />
+                    <div
+                      class="parent-category-handle select-none cursor-pointer flex items-center"
+                    >
+                      <svg
+                        class="parent-category w-5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="1em"
+                        viewBox="0 0 256 512"
+                        fill= #8b5cf6
+                      >
+                        <path
+                          d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
+                        />
+                      </svg>
+                      <span class="ml-2 text-violet-400">${category.getName()}</span>
+                    </div>
+                    <ul class="child-category-handle ml-4 hidden">
+                        <c:forEach var="child" items="${category.getChildren()}">
+                        <li
+                        class="child-item flex items-center pb-1 mt-2 ml-5 cursor-pointer text-sm font-semibold text-violet-300 cursor-pointer select-none selected">
+                        <svg
+                          class="w-8"
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="1em"
+                          viewBox="0 0 576 512"
+                          fill="#8b5cf6"
+                        >
+                          <path
+                            d="M384 480h48c11.4 0 21.9-6 27.6-15.9l112-192c5.8-9.9 5.8-22.1 .1-32.1S555.5 224 544 224H144c-11.4 0-21.9 6-27.6 15.9L48 357.1V96c0-8.8 7.2-16 16-16H181.5c4.2 0 8.3 1.7 11.3 4.7l26.5 26.5c21 21 49.5 32.8 79.2 32.8H416c8.8 0 16 7.2 16 16v32h48V160c0-35.3-28.7-64-64-64H298.5c-17 0-33.3-6.7-45.3-18.7L226.7 50.7c-12-12-28.3-18.7-45.3-18.7H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H87.7 384z"
+                          />
+                        </svg>
+                        <span class="focus:bg-violet-700">${child.getName()}</span>
+                        <input type="checkbox" name="categories" value="${child.getCategoryId()}" class="">
+                      </li>
+                        </c:forEach>
+                    </ul>
+                  </li>
+                </c:if>
+                </c:forEach>
+                  
+                </ul>
+              </div>
+            </div>
+
+            <!-- Product Price -->
+            <div class="grid grid-cols-6 gap-6 mb-6">
+              <label for="" class="text-slate-400 text-sm">Product Price</label>
+              <div class="flex flex-row col-span-4 col-start-3">
+                <span
+                  class="inline-flex items-center px-3 rounded rounded-r-none border-r-0 text-sm focus:border-emerald-300 bg-gray-700 text-gray-300 border border-gray-600"
+                  >$</span
+                >
+                <input
+                  type="number"
+                  name="form-price"
+                  class="w-full h-12 px-3 py-1 text-sm text-gray-300 leading-5 border border-gray-600 rounded-tr-md rounded-br-md bg-gray-700 focus:outline-none focus:border-gray-500"
+                  placeholder="Original Price"
+                  required
+                />
+              </div>
+            </div>
+
+<!--             Sale Price 
+            <div class="grid grid-cols-6 gap-6 mb-6">
+              <label for="" class="text-slate-400 text-sm">Product Price</label>
+              <div class="flex flex-row col-span-4 col-start-3">
+                <span
+                  class="inline-flex items-center px-3 rounded rounded-r-none border-r-0 text-sm focus:border-emerald-300 bg-gray-700 text-gray-300 border border-gray-600"
+                  >$</span
+                >
+                <input
+                  type="number"
+                  name="salePrice"
+                  class="w-full h-12 px-3 py-1 text-sm text-gray-300 leading-5 border border-gray-600 rounded-tr-md rounded-br-md bg-gray-700 focus:outline-none focus:border-gray-500"
+                  placeholder="Sale Price"
+                />
+              </div>
+            </div>-->
+            
+            <!--Quantity-->
+            <div class="grid grid-cols-6 gap-6 mb-6">
+              <label for="" class="text-slate-400 text-sm">Selling quantity</label>
+              <div class="flex flex-row col-span-4 col-start-3">
+                <span
+                  class="inline-flex items-center px-3 rounded rounded-r-none border-r-0 text-sm focus:border-emerald-300 bg-gray-700 text-gray-300 border border-gray-600"
+                  >sl</span
+                >
+                <input
+                  type="number"
+                  name="form-quantity"
+                  class="w-full h-12 px-3 py-1 text-sm text-gray-300 leading-5 border border-gray-600 rounded-tr-md rounded-br-md bg-gray-700 focus:outline-none focus:border-gray-500"
+                  placeholder="Quantity"
+                />
+              </div>
+            </div>
+
+            <!-- Slug -->
+            <div class="grid grid-cols-6 gap-6 mb-6">
+              <label for="" class="text-slate-400 text-sm">Slug</label>
+              <div class="col-span-4 col-start-3">
+                <input
+                  type="text"
+                  name="form-slug"
+                  class="w-full h-12 px-3 py-1 text-sm text-gray-300 leading-5 border border-gray-600 rounded-md bg-gray-700 focus:outline-none focus:border-gray-500"
+                  placeholder="Product slug"
+                  value=""
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              href="#"
+              class="group block float-right rounded-lg p-2 px-4 bg-white ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-sky-500 hover:ring-sky-500"
+            >
+              <div class="flex items-center space-x-3 h-8">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="1em"
+                  viewBox="0 0 448 512"
+                  class="group-hover:fill-white"
+                >
+                  <path
+                    d="M64 80c-8.8 0-16 7.2-16 16V416c0 8.8 7.2 16 16 16H384c8.8 0 16-7.2 16-16V96c0-8.8-7.2-16-16-16H64zM0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM200 344V280H136c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H248v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"
+                  />
+                </svg>
+                <h3
+                  class="text-slate-900 group-hover:text-white text-sm font-semibold"
+                >
+                  Update Product
+                </h3>
+              </div>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+            
     <!-- Delete Product model -->
     <div
       id="product-delete-model"
@@ -920,7 +1249,7 @@
 
           <div class="w-full text-center">
             <form action="<c:url value="/products/delete" />" name="delete-form" method="POST">
-                <input type="hidden" name="productId" value="">
+                <input type="hidden" name="delete-form-productId" value="">
                 <button
                 type="submit"
                 class="confirm-delete-btn bg-red-500 text-white w-full py-2 rounded-md mb-4 font-semibold"

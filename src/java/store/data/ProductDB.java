@@ -105,7 +105,6 @@ public class ProductDB {
         }
         
         return (Product)result;
-
     }
     
     public static List<Product> selectProducts() {
