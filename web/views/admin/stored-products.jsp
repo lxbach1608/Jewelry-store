@@ -251,10 +251,16 @@
                       <span class="text-sm text-center block font-bold">${product.getQuantity()}</span>
                     </td>
                     <td class="py-2 px-4">
-                      <span
-                        class="px-2 py-1 text-xs block text-center rounded-full text-emerald-100 bg-emerald-800"
-                        >Selling</span
-                      >
+                        <c:if test="${product.getQuantity() > 0}">
+                            <span class="px-2 py-1 text-xs block text-center rounded-full text-emerald-100 bg-emerald-800">
+                                Selling
+                            </span>
+                        </c:if>
+                        <c:if test="${product.getQuantity() == 0}">
+                            <span class="px-2 py-1 text-xs block text-center rounded-full text-red-100 bg-red-800">
+                                Sold Out
+                            </span>
+                        </c:if>
                     </td>
                     <td class="py-2 px-4 text-center">
                       <div>
@@ -324,124 +330,6 @@
                     </td>
                   </tr>
                     </c:forEach>
-                  <tr class="border-b border-gray-700 even:bg-slate-800">
-                    <td class="py-2 px-4">
-                      <input type="checkbox" />
-                    </td>
-                    <td class="py-2 px-4">2</td>
-                    <td class="py-2 px-4">
-                      <div class="flex items-center">
-                        <div class="w-8 h-8 mr-2">
-                          <img
-                            class="object-cover rounded-full"
-                            src="https://res.cloudinary.com/ahossain/image/upload/v1682058933/product/CMTHP-COR12-deep-ash-920x920.webp"
-                            alt=""
-                          />
-                        </div>
-                        <span class="text-sm font-semibold"
-                          >Premium T-Shirt
-                        </span>
-                      </div>
-                    </td>
-                    <td class="py-2 px-4">
-                      <span class="text-sm text-center font-medium">Metal</span>
-                    </td>
-                    <td class="py-2 px-4">
-                      <span class="text-sm text-center block font-bold"
-                        >$534.00
-                      </span>
-                    </td>
-                    <td class="py-2 px-4">
-                      <span class="text-sm text-center block font-bold"
-                        >$500.00
-                      </span>
-                    </td>
-                    <td class="py-2 px-4">
-                      <span class="text-sm text-center block"></span>
-                    </td>
-                    <td class="py-2 px-4">
-                      <span
-                        class="px-2 py-1 text-xs block text-center rounded-full text-red-100 bg-red-800"
-                        >Sold Out</span
-                      >
-                    </td>
-                    <td class="py-2 px-4">
-                      <a href="#">
-                        <p class="flex justify-center items-center text-xl">
-                          <svg
-                            stroke="currentColor"
-                            fill="none"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            height="1em"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                            <line x1="11" y1="8" x2="11" y2="14"></line>
-                            <line x1="8" y1="11" x2="14" y2="11"></line>
-                          </svg>
-                        </p>
-                      </a>
-                    </td>
-
-                    <td class="py-2 px-4 text-center">
-                      <div>
-                        
-                        <button
-                          class="edit-btn p-2 cursor-pointer text-gray-400"
-                        >
-                          <p class="text-xl">
-                            <svg
-                              stroke="currentColor"
-                              fill="none"
-                              stroke-width="2"
-                              viewBox="0 0 24 24"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              height="1em"
-                              width="1em"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-                              ></path>
-                              <path
-                                d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-                              ></path>
-                            </svg>
-                          </p>
-                        </button>
-                        <button
-                          class="delete-btn p-2 cursor-pointer text-gray-400"
-                        >
-                          <p class="text-xl">
-                            <svg
-                              stroke="currentColor"
-                              fill="none"
-                              stroke-width="2"
-                              viewBox="0 0 24 24"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              height="1em"
-                              width="1em"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <polyline points="3 6 5 6 21 6"></polyline>
-                              <path
-                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-                              ></path>
-                              <line x1="10" y1="11" x2="10" y2="17"></line>
-                              <line x1="14" y1="11" x2="14" y2="17"></line>
-                            </svg>
-                          </p>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
                 </tbody>
               </table>
             </div>
