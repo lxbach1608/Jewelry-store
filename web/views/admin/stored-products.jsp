@@ -221,12 +221,12 @@
                     </td>
                     <td class="py-2 px-4 text-center">
                       <span class="text-sm text-center font-medium"
-                        >Gold</span
+                        >${product.getColor().getColor()}</span
                       >
                     </td>
                     <td class="py-2 px-4 text-center">
                       <span class="text-sm text-center font-medium"
-                        >16.0</span
+                        >${product.getSize().getSize()}</span
                       >
                     </td>
                     <td class="py-2 px-4">

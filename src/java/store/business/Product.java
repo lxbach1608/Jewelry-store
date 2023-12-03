@@ -3,11 +3,16 @@ package store.business;
 import java.text.DecimalFormat;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import store.data.InventoryDB;
 
 
@@ -18,10 +23,12 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long productId;
     
-    @Id
+    @ManyToOne
+    @JoinColumn(name="SIZEID")
     private Size size;
     
-    @Id
+    @ManyToOne
+    @JoinColumn(name="COLORID")
     private Colour color;
 
     @OneToMany
@@ -111,7 +118,7 @@ public class Product implements Serializable {
         
         Inventory inventory = InventoryDB.selectInventory(this);
         
-        
+        System.out.println(inventory.getInventoryId());
         quantity = inventory.getQuantityInStock();
         
         return quantity;

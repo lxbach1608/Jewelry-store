@@ -83,7 +83,7 @@ public class ProductController extends HttpServlet {
     }
     
     private void create(HttpServletRequest request, HttpServletResponse response) {
-        
+        System.out.println("create product");
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String priceInput = request.getParameter("price");
@@ -93,21 +93,21 @@ public class ProductController extends HttpServlet {
         String quantityInput = request.getParameter("quantity");
         String slug = request.getParameter("slug");
         String[] selectedCategoriesInput = request.getParameterValues("categories");
-        
+
         double price = 0;
         int sizeId = 0;
         int colorId = 0;
         int quantity = 0;
-         
+       
         try {
             price = Double.parseDouble(priceInput);
             sizeId = Integer.parseInt(sizeInput);
             colorId = Integer.parseInt(colorInput);
             quantity = Integer.parseInt(quantityInput);
         } catch(NumberFormatException ex) {
-            System.out.println(ex);
+            System.out.println("can't parse");
         }
-        
+       
         Size sizeInstance = null;
         Colour colorInstance = null;
         List<Category> selectedCategories = Category.convertToCategories(selectedCategoriesInput);
@@ -118,9 +118,9 @@ public class ProductController extends HttpServlet {
         } catch(Exception ex) {
             System.out.println("Can't not get sizeIntance or colorInstance");
         }
-
+       
         Product p = new Product();
-        
+      
         Long id = randomUtil.randomId();
         p.setProductId(id);
         p.setName(name);
@@ -133,7 +133,7 @@ public class ProductController extends HttpServlet {
         p.setCategory(selectedCategories);
         
         ProductDB.insert(p);
-        
+  
         Inventory inventory = new Inventory();
         Product new_p = ProductDB.selectProduct(id);
         
@@ -148,8 +148,8 @@ public class ProductController extends HttpServlet {
         String name = request.getParameter("form-name");
         String description = request.getParameter("form-desc");
         String priceInput = request.getParameter("form-price");
-//        String sizeInput = request.getParameter("size");
-//        String colorInput = request.getParameter("color");
+        String sizeInput = request.getParameter("size");
+        String colorInput = request.getParameter("color");
         String imageUrl = request.getParameter("form-imgUrl");
         String quantityInput = request.getParameter("form-quantity");
         String slug = request.getParameter("form-slug");
@@ -164,11 +164,11 @@ public class ProductController extends HttpServlet {
         try {
             id = Long.parseLong(idInput);
             price = Double.parseDouble(priceInput);
-//            sizeId = Integer.parseInt(sizeInput);
-//            colorId = Integer.parseInt(colorInput);
+            sizeId = Integer.parseInt(sizeInput);
+            colorId = Integer.parseInt(colorInput);
             quantity = Integer.parseInt(quantityInput);
         } catch(NumberFormatException ex) {
-            System.out.println(ex);
+            System.out.println("parse null");
         }
         
         Size sizeInstance = null;
@@ -176,45 +176,38 @@ public class ProductController extends HttpServlet {
         List<Category> selectedCategories = Category.convertToCategories(selectedCategoriesInput);
 
         try {
-//            sizeInstance = SizeDB.selectSize(sizeId);
-//            colorInstance = ColourDB.selectColor(colorId);
+            sizeInstance = SizeDB.selectSize(sizeId);
+            colorInstance = ColourDB.selectColor(colorId);
         } catch(Exception ex) {
             System.out.println("Can't not get sizeIntance or colorInstance");
         }
         
         Product p = ProductDB.selectProduct(id);
         
-        Product inventory_p = p;
-        Inventory inventory = InventoryDB.selectInventory(inventory_p);
-        
-        inventory.setQuantityInStock(quantity);
-        
-        InventoryDB.update(inventory);
+        Inventory inventory = InventoryDB.selectInventory(p);        
         
         p.setName(name);
         p.setDescription(description);
-//        p.setColor(colorInstance);
-//        p.setSize(sizeInstance);
+        p.setColor(colorInstance);
+        p.setSize(sizeInstance);
         p.setImageUrl(imageUrl);
         p.setPrice(price);
         p.setSlug(slug);
-        
 //        p.setCategory(selectedCategories);
+
+        inventory.setQuantityInStock(quantity);
         
+        InventoryDB.update(inventory);
         ProductDB.update(p);
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) {
         String productId = request.getParameter("delete-form-productId");
          
-        System.out.println("productId " + productId);
-         
         long id = Long.parseLong(productId);
         
         Product p = ProductDB.selectProduct(id);
         
-        System.out.println("product: " + p);
-
         ProductDB.delete(p);
     }
 }

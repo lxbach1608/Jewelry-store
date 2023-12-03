@@ -11,7 +11,6 @@ import javax.persistence.Id;
 public class Size implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long sizeId;
     
     private double size;
