@@ -10,7 +10,7 @@ import javax.persistence.TypedQuery;
 
 public class ColourDB {
     public static List<Colour> selectColors() {
-        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+       EntityManager em = DBUtil.getEmFactory().createEntityManager();
 
        String query = "SELECT c FROM Colour c";
 

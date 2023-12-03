@@ -153,7 +153,7 @@ public class ProductController extends HttpServlet {
         String imageUrl = request.getParameter("form-imgUrl");
         String quantityInput = request.getParameter("form-quantity");
         String slug = request.getParameter("form-slug");
-        String[] selectedCategoriesInput = request.getParameterValues("categories");
+        String[] selectedCategoriesInput = request.getParameterValues("form-categories");
         
         long id = 0;
         double price = 0;
@@ -193,7 +193,7 @@ public class ProductController extends HttpServlet {
         p.setImageUrl(imageUrl);
         p.setPrice(price);
         p.setSlug(slug);
-//        p.setCategory(selectedCategories);
+        p.setCategory(selectedCategories);
 
         inventory.setQuantityInStock(quantity);
         

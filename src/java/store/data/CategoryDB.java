@@ -62,6 +62,33 @@ public class CategoryDB {
         return categories;
     }
     
+    public static Category selectParent(long parentId) {
+        
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        String qString = "SELECT c FROM Category c " +
+                        "WHERE c.categoryId = :parentId";
+        
+        TypedQuery<Category> q = em.createQuery(qString, Category.class);
+        
+        q.setParameter("parentId", parentId);
+        
+        Category result = null;
+        
+        try {
+            result = q.getSingleResult();
+            
+        } catch (NoResultException ex) {
+            return null;
+            
+        } finally {
+            em.close();
+            
+        }
+        
+        return (Category)result;
+    }
+    
     public static List<Category> selectCategories() {
         
         EntityManager em = DBUtil.getEmFactory().createEntityManager();

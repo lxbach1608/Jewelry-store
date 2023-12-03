@@ -230,9 +230,17 @@
                       >
                     </td>
                     <td class="py-2 px-4">
-                      <span class="text-sm text-center font-medium"
-                        >Bracelet</span
-                      >
+                        <div class="flex flex-col">
+                            <span class="parent-category-text cursor-pointer">${product.getCategory()[0].getParent().getName()}</span>
+                            <div class="children-block flex flex-col hidden">
+                                <c:forEach var="category" items="${product.getCategory()}">
+                                <span class="text-sm font-medium p-1 ml-1">
+                                    ‣ ${category.getName()}
+                                </span>
+                                </c:forEach>
+                            </div>
+                        </div>
+                      
                     </td>
                     <td class="py-2 px-4">
                       <span class="text-sm text-center block font-bold"
@@ -258,6 +266,10 @@
                         <input type="hidden" name="_imgUrl" value="${product.getImageUrl()}">
                         <input type="hidden" name="_price" value="${product.getPrice()}">
                         <input type="hidden" name="_slug" value="${product.getSlug()}">
+                            
+                        <c:forEach var="category" items="${product.getCategory()}">
+                            <input type="checkbox" name="_categories" class="hidden" checked value="${category.getCategoryId()}">
+                        </c:forEach>
                         <input type="hidden" name="_quantity" value="${product.getQuantity()}">
                         <button
                           class="edit-btn p-2 cursor-pointer text-gray-400"
@@ -1089,12 +1101,6 @@
                 <c:forEach var="category" items="${categories}">
                 <c:if test="${category.getParentId() == null}">
                     <li class="font-semibold mb-1">
-                    <input
-                      type="checkbox"
-                      name="categories"
-                      value=""
-                      class="hidden"
-                    />
                     <div
                       class="parent-category-handle select-none cursor-pointer flex items-center"
                     >
@@ -1127,7 +1133,7 @@
                           />
                         </svg>
                         <span class="focus:bg-violet-700">${child.getName()}</span>
-                        <input type="checkbox" name="categories" value="${child.getCategoryId()}" class="">
+                        <input type="checkbox" name="form-categories" value="${child.getCategoryId()}" class="">
                       </li>
                         </c:forEach>
                     </ul>

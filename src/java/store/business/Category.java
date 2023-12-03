@@ -60,8 +60,8 @@ public class Category implements Serializable {
         this.parentId = parentId;
     }
     
-    public List<Category> getParents() {
-        return CategoryDB.selectChildren(this.categoryId);
+    public Category getParent() {
+        return CategoryDB.selectParent(this.parentId);
     }
 
     public List<Category> getChildren() {

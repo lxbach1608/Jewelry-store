@@ -36,9 +36,12 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
     const editBtns = $(".edit-btn");
     
+    
     editBtns.click(function (e) {
-        const parent = $(this).parent();
+        let categories;
 
+        const parent = $(this).parent();
+        
         id = $(parent[0]).children("input[name*='_productId']").val();
         name = $(parent[0]).children("input[name*='_name']").val();
         desc = $(parent[0]).children("input[name*='_desc']").val();
@@ -49,6 +52,14 @@ document.addEventListener("DOMContentLoaded", function(e) {
         slug = $(parent[0]).children("input[name*='_slug']").val();
         quantity = $(parent[0]).children("input[name*='_quantity']").val();
         
+        categories = $(parent[0]).children("input[name*='_categories']:checkbox:checked").map(function() {
+            return this.value;
+        });
+        
+        categories = categories.get(); // return array
+        
+        console.log(categories);
+        
         $("input[name*='form-id']").val(id);
         $("input[name*='form-name']").val(name);
         $("textarea[name*='form-desc']").val(desc);
@@ -56,8 +67,16 @@ document.addEventListener("DOMContentLoaded", function(e) {
         $("input[name*='form-price']").val(price);
         $("input[name*='form-slug']").val(slug);
         $("input[name*='form-quantity']").val(quantity);
-        
         $("._img-demo").attr("src", imgUrl);
+        
+        // handle categories
+        $("input[name*='form-categories']").each(function() {
+            value = $(this).val();
+            if(categories.find((element) => element === value)) {
+                $(this).attr("checked", true);
+            }
+        });
+        
 
         editModel.removeClass("hidden");
     });
@@ -199,5 +218,19 @@ document.addEventListener("DOMContentLoaded", function(e) {
     }
   });
   
-
+  
+    // admin product UI category click
+  $(".parent-category-text").on("click", function (e) {
+      let sibling = $(this).next(".children-block");
+      
+      if (sibling.hasClass("hidden")) {
+        sibling.removeClass(("hidden"));
+        
+        $(this).addClass("font-semibold");
+      } else {
+        sibling.addClass(("hidden"));
+        
+        $(this).removeClass("font-semibold");
+      }
+    });
 });
