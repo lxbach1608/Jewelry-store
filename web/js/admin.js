@@ -58,8 +58,6 @@ document.addEventListener("DOMContentLoaded", function(e) {
         
         categories = categories.get(); // return array
         
-        console.log(categories);
-        
         $("input[name*='form-id']").val(id);
         $("input[name*='form-name']").val(name);
         $("textarea[name*='form-desc']").val(desc);
@@ -75,6 +73,19 @@ document.addEventListener("DOMContentLoaded", function(e) {
             if(categories.find((element) => element === value)) {
                 $(this).attr("checked", true);
             }
+        });
+        
+        $("input[name='form-categories']:checkbox").each(function() {
+        let parent = $(this).parent();
+        let icon = parent.children(".folder-icon");
+            
+        if($(this).is(":checked")) {
+            console.log($(this));
+            icon.replaceWith(folderIcons['closeFolder']);
+        }
+        else {
+            icon.replaceWith(folderIcons['openFolder']);
+        }
         });
         
 
@@ -100,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
 //  Handle category
   const categoryIcons = {
     caretDown: `<svg
-      class="parent-category w-5"
+      class="arrow-icon w-5"
       xmlns="http://www.w3.org/2000/svg"
       height="1em"
       viewBox="0 0 320 512"
@@ -111,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
       />
     </svg>`,
     caretRight: `<svg
-        class="parent-category w-5"
+        class="arrow-icon w-5"
         xmlns="http://www.w3.org/2000/svg"
         height="1em"
         viewBox="0 0 256 512"
@@ -122,12 +133,24 @@ document.addEventListener("DOMContentLoaded", function(e) {
       />
     </svg>`
   };
-
+  
+  const folderIcons = {
+      openFolder: `<svg class="folder-icon w-8" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" fill="#8b5cf6">
+                    <path d="M384 480h48c11.4 0 21.9-6 27.6-15.9l112-192c5.8-9.9 5.8-22.1 .1-32.1S555.5 224 544 224H144c-11.4 0-21.9 6-27.6 15.9L48 357.1V96c0-8.8 7.2-16 16-16H181.5c4.2 0 8.3 1.7 11.3 4.7l26.5 26.5c21 21 49.5 32.8 79.2 32.8H416c8.8 0 16 7.2 16 16v32h48V160c0-35.3-28.7-64-64-64H298.5c-17 0-33.3-6.7-45.3-18.7L226.7 50.7c-12-12-28.3-18.7-45.3-18.7H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H87.7 384z"></path>
+                    </svg>`,
+      closeFolder: `<svg class="folder-icon w-8" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" fill="#8b5cf6">
+                    <path d="M64 480H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H288c-10.1 0-19.6-4.7-25.6-12.8L243.2 57.6C231.1 41.5 212.1 32 192 32H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64z"></path>
+                    </svg>`
+  };
+  
   // root category display category-list
     const rootHandle = $(".root-category-handle");
 
     const parentHandles = $(".parent-category-handle");
+    
     const childHandles = $(".child-category-handle");
+    
+    const childItems = $(".child-item");
     
     rootHandle.click(function (e) {
       $(".category-list").hasClass("hidden")
@@ -135,18 +158,35 @@ document.addEventListener("DOMContentLoaded", function(e) {
         : $(".category-list").addClass("hidden");
     });
 
-  // parent display children
-  $(".parent-category-handle").on("click", function (e) {
-    var sibling = $(this).next(".child-category-handle");
-
+    // parent display children
+  $(".parent-category-handle").on("click", function (e) {    
+    let sibling = $(this).next(".child-category-handle");
+    
+    let arrowIcon = $(this).children(".arrow-icon");
+    
     if (sibling.hasClass("hidden")) {
       sibling.removeClass("hidden");
+      arrowIcon.replaceWith(categoryIcons['caretDown']);
     } else {
       sibling.addClass("hidden");
+      arrowIcon.replaceWith(categoryIcons['caretRight']);
     }
   });
+  
+    // handle checkout icon
+    childItems.on("click", function(e) {
+        let cb = $(this).children("input:checkbox");
+        
+        let fodlerIcon = $(this).children(".folder-icon");
+        
+        if(cb.is(":checked")) {
+            fodlerIcon.replaceWith(folderIcons['openFolder']);
+        } else {
+            fodlerIcon.replaceWith(folderIcons['closeFolder']);
+        }
+    });
 
-  // imageUrl input
+    // imageUrl input
     const imageUrlInput = $("input[name=imageUrl]");
     const imageUrlInputUpdate = $("input[name=form-imgUrl]");
 
@@ -210,7 +250,6 @@ document.addEventListener("DOMContentLoaded", function(e) {
   $(".child-item").on("click", function (e) {
     let cbInput = $(this).children("input");
 
-    console.log(cbInput.attr("checked"));
     if (cbInput.attr("checked") === "checked") {
       cbInput.attr("checked", false);
     } else {

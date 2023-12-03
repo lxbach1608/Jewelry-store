@@ -993,7 +993,7 @@
                       class="parent-category-handle select-none cursor-pointer flex items-center"
                     >
                       <svg
-                        class="parent-category w-5"
+                        class="arrow-icon w-5"
                         xmlns="http://www.w3.org/2000/svg"
                         height="1em"
                         viewBox="0 0 256 512"
@@ -1010,7 +1010,7 @@
                         <li
                         class="child-item flex items-center pb-1 mt-2 ml-5 cursor-pointer text-sm font-semibold text-violet-300 cursor-pointer select-none selected">
                         <svg
-                          class="w-8"
+                          class="folder-icon w-8"
                           xmlns="http://www.w3.org/2000/svg"
                           height="1em"
                           viewBox="0 0 576 512"
