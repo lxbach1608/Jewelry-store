@@ -15,54 +15,17 @@
               <ul class="category-list">
                 <li>
                   <div class="parent">
-                    <a href="#">Bracelets</a>
-                    <i class="fa-solid fa-plus"></i>
-                  </div>
-                  <ul class="child-list">
+                    <div class="flex justify-between">
+                        <a href="#">Bracelets</a>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <ul class="child-list">
                     <li><a href="#">Bands</a></li>
                     <li><a href="#">Emerald Spring</a></li>
                     <li><a href="#">Men’s Bands</a></li>
                     <li><a href="#">Ruthenium</a></li>
                     <li><a href="#">Wedding Band Sets</a></li>
                   </ul>
-                </li>
-                <li>
-                  <div class="parent">
-                    <a href="#">By Metal</a>
-                    <i class="fa-solid fa-plus"></i>
-                  </div>
-                </li>
-                <li>
-                  <div class="parent">
-                    <a href="#">Earrings</a>
-                    <i class="fa-solid fa-plus"></i>
-                  </div>
-                </li>
-                <li>
-                  <div class="parent">
-                    <a href="#">Onyx</a>
-                  </div>
-                </li>
-                <li>
-                  <div class="parent">
-                    <a href="#">Pendants</a>
-                    <i class="fa-solid fa-plus"></i>
-                  </div>
-                </li>
-                <li>
-                  <div class="parent">
-                    <a href="#">Platinum</a>
-                  </div>
-                </li>
-                <li>
-                  <div class="parent">
-                    <a href="#">Ring</a>
-                    <i class="fa-solid fa-plus"></i>
-                  </div>
-                </li>
-                <li>
-                  <div class="parent">
-                    <a href="#">Tanzanites</a>
                   </div>
                 </li>
               </ul>
@@ -177,7 +140,7 @@
                       Rhombus Diamond Ring 18k White Gold
                     </h3>
                     <div class="price-wrapper">
-                      <span class="product-old-price">$ 990.00</span>
+                      <span class="product-price old-price">$ 990.00</span>
                       <span class="product-price new-price">$ 99.00</span>
                     </div>
                   </div>
@@ -190,8 +153,36 @@
             <span class="paging-lable">Showing 1–12 of 17 results</span>
 
             <div class="row">
-                
-              <div class="col l-4 mb-30">
+            <c:forEach var="product" items="${products}">
+                <div class="col l-4 mb-50">
+                <div class="product-item">
+                  <div class="product-wrapper">
+                    <a  href="<c:url value="/products/details/${product.getSlug()}?id=${product.getProductId()}" />">
+                      <img
+                        class="product__img"
+                        src="${product.getImageUrl()}"
+                        alt=""
+                      />
+                    </a>
+                    <span class="category-lable">By Metal</span>
+                    <a href="#" class="product__body">
+                      <h2 class="product__title">
+                          ${product.getName()}
+                      </h2>
+                      <div class="price-wrapper text-center">
+                        <span class="product-price text-green text-semibold"
+                          >${product.formattedPrice(product.getPrice())}</span
+                        >
+                      </div>
+                    </a>
+                    <div class="btn-wrapper">
+                      <a href="#" class="add-to-cart-btn">Add to cart</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </c:forEach>
+              <div class="col l-4 mb-50">
                 <div class="product-item">
                   <div class="product-wrapper">
                     <a  href="<c:url value="/products/details" />">
@@ -207,7 +198,6 @@
                         14K Gold 9″ Diamond Ankle Bracelet
                       </h2>
                       <div class="price-wrapper text-center">
-                        <!-- <span class="product-old-price">$ 990.00</span> -->
                         <span class="product-price text-green text-semibold"
                           >$ 99.00</span
                         >
@@ -220,9 +210,10 @@
                 </div>
               </div>
 
-              <div class="col l-4 mb-30">
+              <div class="col l-4 mb-50">
                 <div class="product-item">
                   <div class="product-wrapper">
+                      <img src="<c:url value="/public/img/sale.png"/>" class="coupon-img">
                     <a href="#">
                       <img
                         class="product__img"
@@ -236,33 +227,9 @@
                         14K Gold 9″ Diamond Ankle Bracelet
                       </h2>
                       <div class="price-wrapper text-center">
-                        <span class="product-old-price">$ 990.00</span>
+                        <span class="product-price old-price">$ 990.00</span>
                         <span class="product-price new-price">$ 99.00</span>
                       </div>
-                    </a>
-                    <div class="btn-wrapper">
-                      <a href="#" class="add-to-cart-btn">Add to cart</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col l-4 mb-30">
-                <div class="product-item">
-                  <div class="product-wrapper">
-                    <a href="#">
-                      <img
-                        class="product__img"
-                        src="https://mldrbgfat3wx.i.optimole.com/SQPHnU0-FGk4D64U/w:300/h:300/q:auto/rt:fill/g:ce/https://dici.themes.zone/main/wp-content/uploads/sites/8/2018/04/DC_Products_6.jpg"
-                        alt=""
-                      />
-                    </a>
-                    <span class="category-lable">By Metal</span>
-                    <a href="#" class="product__body">
-                      <h2 class="product__title">
-                        14K Gold 9″ Diamond Ankle Bracelet
-                      </h2>
-                      <span class="product__price">$&nbsp;15.00</span>
                     </a>
                     <div class="btn-wrapper">
                       <a href="#" class="add-to-cart-btn">Add to cart</a>

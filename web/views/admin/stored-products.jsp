@@ -487,6 +487,22 @@
         <!-- body -->
         <div class="bg-gray-700 h-screen overflow-scroll">
             <form action="<c:url value="/products/create"/>" method="POST" class="px-6 pt-8 pb-44">
+            <!--Product Id-->
+            <div class="grid grid-cols-6 gap-6 mb-6">
+              <label for="" class="text-slate-400 text-sm"
+                >Product Identification</label
+              >
+              <div class="col-span-4 col-start-3">
+                <input
+                  type="text"
+                  name="id"
+                  class="w-20 h-12 px-3 py-1 text-sm text-gray-300 leading-5 border border-gray-600 rounded-md bg-gray-700 focus:outline-none focus:border-gray-500"
+                  placeholder="ID"
+                  value=""
+                  required
+                />
+              </div>
+            </div>
             <!-- Product title -->
             <div class="grid grid-cols-6 gap-6 mb-6">
               <label for="" class="text-slate-400 text-sm"
@@ -1126,7 +1142,6 @@
       </div>
     </div>
     
-            
     <!-- Delete Product model -->
     <div
       id="product-delete-model"

@@ -45,7 +45,8 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        String url = "/views/products/shopShow.jsp";
+        String url = "/views/products/show.jsp";
+        
         
         String requestURI = request.getRequestURI();
         
@@ -53,6 +54,10 @@ public class ProductController extends HttpServlet {
         
         if(requestURI.endsWith("/products/show")) {
             url = shopShow(request, response);
+        }
+        
+        if(requestURI.startsWith(rootPath + "/products/details")) {
+            url = productDetails(request, response);
         }
         
         if(requestURI.endsWith(rootPath + "/products/details")) {
@@ -65,8 +70,8 @@ public class ProductController extends HttpServlet {
     private String shopShow(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         
-        List<Product> products = ProductDB.selectProducts();
-
+        List<Product> products = ProductDB.selectDistinctProducts();
+        
         session.setAttribute("products", products);
         
         return "/views/products/show.jsp";
@@ -75,15 +80,25 @@ public class ProductController extends HttpServlet {
     private String productDetails(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         
-        List<Product> products = ProductDB.selectProducts();
+        String id = request.getParameter("id");
+        
+        Product p = ProductDB.selectProduct(Long.parseLong(id));
+        
+        List<Size> s = SizeDB.selectSizes();
+        
+        List<Colour> c = ColourDB.selectColors();
 
-        session.setAttribute("products", products);
+        session.setAttribute("product", p);
+        
+        session.setAttribute("sizes", s);
+        
+        session.setAttribute("colors", c);
         
         return "/views/products/details.jsp";
     }
     
     private void create(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("create product");
+        String idInput = request.getParameter("id");
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String priceInput = request.getParameter("price");
@@ -94,12 +109,14 @@ public class ProductController extends HttpServlet {
         String slug = request.getParameter("slug");
         String[] selectedCategoriesInput = request.getParameterValues("categories");
 
+        long id = 0;
         double price = 0;
         int sizeId = 0;
         int colorId = 0;
         int quantity = 0;
        
         try {
+            id = Long.parseLong(idInput);
             price = Double.parseDouble(priceInput);
             sizeId = Integer.parseInt(sizeInput);
             colorId = Integer.parseInt(colorInput);
@@ -121,7 +138,6 @@ public class ProductController extends HttpServlet {
        
         Product p = new Product();
       
-        Long id = randomUtil.randomId();
         p.setProductId(id);
         p.setName(name);
         p.setDescription(description);
@@ -188,8 +204,8 @@ public class ProductController extends HttpServlet {
         
         p.setName(name);
         p.setDescription(description);
-        p.setColor(colorInstance);
-        p.setSize(sizeInstance);
+//        p.setColor(colorInstance);
+//        p.setSize(sizeInstance);
         p.setImageUrl(imageUrl);
         p.setPrice(price);
         p.setSlug(slug);
@@ -203,10 +219,14 @@ public class ProductController extends HttpServlet {
 
     private void delete(HttpServletRequest request, HttpServletResponse response) {
         String productId = request.getParameter("delete-form-productId");
-         
+        
         long id = Long.parseLong(productId);
         
         Product p = ProductDB.selectProduct(id);
+        
+        Inventory inventory = InventoryDB.selectInventory(p);
+        
+        InventoryDB.delete(inventory);
         
         ProductDB.delete(p);
     }

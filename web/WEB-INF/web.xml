@@ -38,6 +38,16 @@
         <url-pattern>/products/details/*</url-pattern>
     </servlet-mapping>
     
+    <!--Cart-->
+    <servlet>
+        <servlet-name>CartController</servlet-name>
+        <servlet-class>store.controllers.CartController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CartController</servlet-name>
+        <url-pattern>/cart/add</url-pattern>
+    </servlet-mapping>
+    
     <!-- Site -->
     <servlet>
         <servlet-name>SiteController</servlet-name>

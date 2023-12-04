@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import store.data.InventoryDB;
 
 
@@ -20,14 +19,15 @@ import store.data.InventoryDB;
 public class Product implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long productId;
     
-    @ManyToOne
+    @Id
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="SIZEID")
     private Size size;
     
-    @ManyToOne
+    @Id
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="COLORID")
     private Colour color;
 
@@ -118,7 +118,6 @@ public class Product implements Serializable {
         
         Inventory inventory = InventoryDB.selectInventory(this);
         
-        System.out.println(inventory.getInventoryId());
         quantity = inventory.getQuantityInStock();
         
         return quantity;

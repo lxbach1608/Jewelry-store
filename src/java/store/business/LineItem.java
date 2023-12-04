@@ -19,20 +19,19 @@ public class LineItem implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long lineItemId;
     
-    @OneToOne
-    private Inventory productItem;
-
-    public Inventory getProductItem() {
-        return productItem;
-    }
-
-    public void setProductItem(Inventory productItem) {
-        this.productItem = productItem;
-    }
-    
     private int quantity = 1;
-
     
+    @OneToOne
+    private Product product;
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -48,5 +47,4 @@ public class LineItem implements Serializable {
     public void setLineItemId(Long lineItemId) {
         this.lineItemId = lineItemId;
     }
-    
 }

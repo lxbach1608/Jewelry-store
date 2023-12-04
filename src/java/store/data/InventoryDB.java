@@ -57,6 +57,29 @@ public class InventoryDB {
         }
     }
     
+    public static void delete(Inventory in) {
+        
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        EntityTransaction trans = em.getTransaction();
+        
+        trans.begin();
+
+        try {
+            em.remove(em.merge(in));
+            
+            trans.commit();
+        }
+        catch(Exception ex) {
+            System.out.println(ex);
+            
+            trans.rollback();
+        }
+        finally {
+            em.close();
+        }
+    }
+    
     public static List<Inventory> selectInventories() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
 

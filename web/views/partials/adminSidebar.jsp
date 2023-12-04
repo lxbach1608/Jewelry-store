@@ -284,7 +284,7 @@
                   <circle cx="12" cy="12" r="6"></circle>
                   <circle cx="12" cy="12" r="2"></circle>
                 </svg>
-                <span class="ml-4">Online store</span>
+                  <a href="<c:url value="/products/show" />" class="ml-4">Online Store</a>
                 <span class="pl-4 mt-1">
                   <svg
                     stroke="currentColor"

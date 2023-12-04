@@ -1,0 +1,231 @@
+.product-content {
+}
+
+.product-content__title {
+  font-family: var(--ff-butler);
+  font-size: 3.2rem;
+  font-weight: 500;
+  margin: 22px 0;
+}
+
+.price-wrapper {
+  margin: 10px 0;
+  position: relative;
+}
+
+.price-wrapper .old-price {
+  font-weight: 500;
+  color: #9e9e9e;
+  text-decoration: line-through;
+}
+
+.price-wrapper .new-price {
+  font-weight: 600;
+  color: #d7422d;
+  font-size: 1.6rem;
+}
+
+.price-wrapper .price {
+  font-weight: 600;
+  color: #45cfbe;
+  font-size: 1.6rem;
+}
+
+.product-desc {
+  font-size: 1.5rem;
+  line-height: 1.7;
+  margin: 20px 0;
+}
+
+.variation {
+}
+
+.variation-name {
+  width: 15%;
+  display: inline-block;
+  font-size: 1.4rem;
+  font-weight: 500;
+  padding-left: 10px;
+}
+
+.selection {
+  display: inline-block;
+  width: 79%;
+  padding: 10px;
+}
+
+.selection-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 45%;
+  padding: 0 15px;
+  color: #888686;
+  line-height: 42px;
+  font-size: 1.4rem;
+  border: 1px solid #ccc;
+  border-radius: 999px;
+}
+
+.arrow-down-icon {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  padding: 13px 0px 13px 180px;
+  font-size: 1.6rem;
+  color: var(--black);
+  cursor: pointer;
+}
+
+.quantity-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 6px;
+  margin-right: 20px;
+}
+
+.increase-btn {
+  display: block;
+  position: absolute;
+  padding: 4px;
+  top: 9px;
+  right: 10px;
+  font-size: 1.6rem;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.decrease-btn {
+  display: block;
+  position: absolute;
+  padding: 4px;
+  top: 8px;
+  left: 10px;
+  font-size: 1.6rem;
+  background-color: transparent;
+  cursor: pointer;
+}
+.quantity-input {
+  display: inline-block;
+  width: 90px;
+  padding: 0 26px;
+  line-height: 42px;
+  cursor: pointer;
+}
+
+/*Category list*/
+
+.product-content .category-list {
+  margin-top: 20px;
+  display: flex;
+  font-size: 1.2rem;
+}
+
+.product-content .category-list li a {
+  margin-right: 4px;
+  text-transform: uppercase;
+  color: var(--green);
+  font-weight: 500;
+}
+
+/* Additional */
+
+.additional {
+  width: 100%;
+}
+
+.tab-list {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.tab-list::after {
+  position: absolute;
+  bottom: 0;
+  content: "";
+  height: 1px;
+  width: 100%;
+  background-color: #ccc;
+}
+
+.tab-list li {
+  margin-right: 45px;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 20px 0;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #ccc;
+}
+
+.additional-body {
+  width: 100%;
+  padding-top: 20px;
+}
+
+.additional-heading {
+  font-family: var(--ff-butler);
+  font-size: 3.2rem;
+  margin: 26px 0;
+}
+
+.additional-text {
+  font-size: 1.5rem;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+/*  */
+
+.variation-table tr th {
+  background-color: #f1f1f1;
+  font-weight: 600;
+  font-size: 1.4rem;
+  padding: 12px 16px;
+}
+
+.variation-table tr td {
+  padding: 0 20px;
+}
+
+/*  */
+
+.no-review {
+  padding: 20px;
+  border-top: 3px solid #fda403;
+}
+
+.no-review i {
+  color: #fda403;
+  margin-right: 20px;
+}
+
+.no-review .text {
+  letter-spacing: 0.5px;
+  font-size: 1.4rem;
+}
+
+/*  */
+
+.related-product .heading {
+  position: relative;
+  font-size: 2.2rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 80px;
+}
+
+.related-product .heading::after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -36px;
+  content: "";
+  background-image: url(https://dici.themes.zone/black/wp-content/themes/dici/assets/img/title_o.png);
+  background-size: contain;
+  width: 108px;
+  height: 15px;
+  display: block;
+}

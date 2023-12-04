@@ -131,4 +131,31 @@ public class ProductDB {
         
         return products;
     }
+    
+    public static List<Product> selectDistinctProducts() {
+        
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        String query = "SELECT p FROM Product p GROUP BY p.slug";
+        
+//        String query = "SELECT y FROM Product y GROUP BY y.price";
+        
+        TypedQuery<Product> q = em.createQuery(query, Product.class);
+        
+        List<Product> products;
+        
+        try {
+            products = q.getResultList();
+            
+            if(products == null || products.isEmpty())
+            { 
+                products = null;
+            }
+        }
+        finally {
+            em.close();
+        }
+        
+        return products;
+    }
 }

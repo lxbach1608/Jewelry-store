@@ -1,4 +1,6 @@
-    <footer class="footer">
+<%@page contentType="text/html" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
+<footer class="footer">
         <section class="grid wide">
           <div class="row">
             <div class="col l-3">
@@ -80,4 +82,6 @@
         </div>
       </footer>
 </body>
+    <script src="<c:url value="/js/shop.js" />"></script>
+    <script src="<c:url value="/js/details.js" />"></script>
 </html>
