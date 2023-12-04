@@ -15,8 +15,6 @@ import store.data.ColourDB;
 import store.data.InventoryDB;
 import store.data.SizeDB;
 
-import store.util.randomUtil;
-
 public class ProductController extends HttpServlet {
     
     @Override
@@ -115,6 +113,7 @@ public class ProductController extends HttpServlet {
         int colorId = 0;
         int quantity = 0;
        
+       
         try {
             id = Long.parseLong(idInput);
             price = Double.parseDouble(priceInput);
@@ -124,7 +123,7 @@ public class ProductController extends HttpServlet {
         } catch(NumberFormatException ex) {
             System.out.println("can't parse");
         }
-       
+        
         Size sizeInstance = null;
         Colour colorInstance = null;
         List<Category> selectedCategories = Category.convertToCategories(selectedCategoriesInput);

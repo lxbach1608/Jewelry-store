@@ -107,6 +107,36 @@ public class ProductDB {
         return (Product)result;
     }
     
+    public static Product selectProduct(long id, int colorId, int sizeId) {
+    EntityManager em = DBUtil.getEmFactory().createEntityManager();
+    
+
+    
+    String qString = "SELECT p FROM Product p " +
+                    "WHERE p.productId = :id AND p.size.sizeId = :sizeId AND p.color.colorId = :colorId";
+    
+    TypedQuery<Product> q = em.createQuery(qString, Product.class);
+    
+    q.setParameter("id", id);
+    q.setParameter("colorId", colorId);
+    q.setParameter("sizeId", sizeId);
+    
+    Product result = null;
+    
+    try {
+        result = q.getSingleResult();
+        
+    } catch (NoResultException ex) {
+        return null;
+        
+    } finally {
+        em.close();
+    }
+    
+    return (Product)result;
+}
+
+    
     public static List<Product> selectProducts() {
         
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
