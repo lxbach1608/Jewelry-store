@@ -13,3 +13,5 @@
     </properties>
   </persistence-unit>
 </persistence>
+
+<!--<property name="javax.persistence.jdbc.url" value="jdbc:mysql://web.cikaomb5qokd.ap-southeast-2.rds.amazonaws.com:3306/store"/>-->

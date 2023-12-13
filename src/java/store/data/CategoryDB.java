@@ -1,6 +1,7 @@
 
 package store.data;
 
+import store.util.DBUtil;
 import java.util.List;
 import store.business.Category;
 import store.business.Product;
@@ -44,6 +45,32 @@ public class CategoryDB {
         TypedQuery<Category> q = em.createQuery(query, Category.class);
         
         q.setParameter("id", parentId);
+        
+        List<Category> categories;
+        
+        try {
+            categories = q.getResultList();
+            
+            if(categories == null || categories.isEmpty())
+            { 
+                categories = null;
+            }
+        }
+        finally {
+            em.close();
+        }
+        
+        return categories;
+    }
+    
+    public static List<Category> selectParents() {
+        
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        String query = "SELECT c FROM Category c " + 
+                        "WHERE c.parentId IS NULL";
+        
+        TypedQuery<Category> q = em.createQuery(query, Category.class);
         
         List<Category> categories;
         
@@ -123,6 +150,33 @@ public class CategoryDB {
         TypedQuery<Category> q = em.createQuery(qString, Category.class);
         
         q.setParameter("id", id);
+        
+        Category result = null;
+        
+        try {
+            result = q.getSingleResult();
+            
+        } catch (NoResultException ex) {
+            return null;
+            
+        } finally {
+            em.close();
+            
+        }
+        
+        return (Category)result;
+    }
+    
+    public static Category selectOwnCategoryById(long productId) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        String qString = "SELECT c FROM Category c " +
+                    "JOIN c.products p " +
+                    "WHERE p.productId = :productId GROUP BY c.categoryId";
+        
+        TypedQuery<Category> q = em.createQuery(qString, Category.class);
+        
+        q.setParameter("productId", productId);
         
         Category result = null;
         

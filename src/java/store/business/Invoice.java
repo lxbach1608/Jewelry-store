@@ -1,12 +1,13 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package store.business;
-
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,11 +20,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Order implements Serializable {
+public class Invoice implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long orderId;
+    private Long invoiceId;
     
     @ManyToOne
     private User user;
@@ -41,12 +42,12 @@ public class Order implements Serializable {
     
     private double total;
 
-    public Long getOrderId() {
-        return orderId;
+    public Long getInvoiceId() {
+        return invoiceId;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setInvoiceId(Long invoiceId) {
+        this.invoiceId = invoiceId;
     }
 
     public User getUser() {
@@ -95,5 +96,16 @@ public class Order implements Serializable {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+    
+    public int getTotalQuantity() {
+        
+        int quantity = 0;
+        
+        for(LineItem li : lines) {
+            quantity += li.getQuantity();
+        }
+        
+        return quantity;
     }
 }

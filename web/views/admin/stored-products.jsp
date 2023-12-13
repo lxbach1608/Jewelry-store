@@ -2,10 +2,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="/views/partials/adminHeader.jsp" />
-<main class="flex">
+<main class="flex h-screen">
     <jsp:include page="/views/partials/adminSidebar.jsp" />
 
-    <div class="content bg-gray-900 px-6 w-full">
+    <div class="content bg-gray-900 px-6 w-full overflow-scroll">
         <h1 class="my-6 font-bold text-lg text-gray-300">Products</h1>
         
         <!-- below product -->
@@ -244,7 +244,7 @@
                     </td>
                     <td class="py-2 px-4">
                       <span class="text-sm text-center block font-bold"
-                        >${product.formattedPrice(product.getPrice())}
+                        >$ ${product.formattedPrice()}
                       </span>
                     </td>
                     <td class="py-2 px-4">
@@ -267,8 +267,8 @@
                         <input type="hidden" name="_productId" value="${product.getProductId()}">
                         <input type="hidden" name="_name" value="${product.getName()}">
                         <input type="hidden" name="_desc" value="${product.getDescription()}">
-                        <input type="hidden" name="_size" value="${product.getSize().getSize()}">
-                        <input type="hidden" name="_color" value="${product.getColor().getColor()}">
+                        <input type="hidden" name="_size" value="${product.getSize().getSizeId()}">
+                        <input type="hidden" name="_color" value="${product.getColor().getColorId()}">
                         <input type="hidden" name="_imgUrl" value="${product.getImageUrl()}">
                         <input type="hidden" name="_price" value="${product.getPrice()}">
                         <input type="hidden" name="_slug" value="${product.getSlug()}">
@@ -302,7 +302,9 @@
                           </p>
                         </button>
                         <button
-                          data-id="${product.getProductId()}"
+                          data-productId="${product.getProductId()}"
+                          data-colorId="${product.getColor().getColorId()}"
+                          data-sizeId="${product.getSize().getSizeId()}"
                           class="delete-btn p-2 cursor-pointer text-gray-400"
                         >
                           <p class="text-xl">
@@ -662,7 +664,7 @@
                       class="parent-category-handle select-none cursor-pointer flex items-center"
                     >
                       <svg
-                        class="parent-category w-5"
+                        class="arrow-icon w-5"
                         xmlns="http://www.w3.org/2000/svg"
                         height="1em"
                         viewBox="0 0 256 512"
@@ -679,7 +681,7 @@
                         <li
                         class="child-item flex items-center pb-1 mt-2 ml-5 cursor-pointer text-sm font-semibold text-violet-300 cursor-pointer select-none selected">
                         <svg
-                          class="w-8"
+                          class="folder-icon w-8"
                           xmlns="http://www.w3.org/2000/svg"
                           height="1em"
                           viewBox="0 0 576 512"
@@ -690,7 +692,7 @@
                           />
                         </svg>
                         <span class="focus:bg-violet-700">${child.getName()}</span>
-                        <input type="checkbox" name="categories" value="${child.getCategoryId()}" class="">
+                        <input type="checkbox" name="categories" value="${child.getCategoryId()}" class="hidden">
                       </li>
                         </c:forEach>
                     </ul>
@@ -701,6 +703,7 @@
                 </ul>
               </div>
             </div>
+            
 
             <!-- Product Price -->
             <div class="grid grid-cols-6 gap-6 mb-6">
@@ -1037,7 +1040,7 @@
                           />
                         </svg>
                         <span class="focus:bg-violet-700">${child.getName()}</span>
-                        <input type="checkbox" name="form-categories" value="${child.getCategoryId()}" class="">
+                        <input type="checkbox" name="form-categories" value="${child.getCategoryId()}" class="hidden">
                       </li>
                         </c:forEach>
                     </ul>
@@ -1119,6 +1122,8 @@
               href="#"
               class="group block float-right rounded-lg p-2 px-4 bg-white ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-sky-500 hover:ring-sky-500"
             >
+                
+                
               <div class="flex items-center space-x-3 h-8">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -1136,6 +1141,8 @@
                   Update Product
                 </h3>
               </div>
+                <input type="hidden" name="form-sizeId" value=""/>
+                <input type="hidden" name="form-colorId" value=""/>
             </button>
           </form>
         </div>
@@ -1177,6 +1184,8 @@
           <div class="w-full text-center">
             <form action="<c:url value="/products/delete" />" name="delete-form" method="POST">
                 <input type="hidden" name="delete-form-productId" value="">
+                <input type="hidden" name="delete-form-sizeId" value="">
+                <input type="hidden" name="delete-form-colorId" value="">
                 <button
                 type="submit"
                 class="confirm-delete-btn bg-red-500 text-white w-full py-2 rounded-md mb-4 font-semibold"
@@ -1196,5 +1205,50 @@
         </div>
       </div>
     </div>
+                
+    <!-- Delete message model -->
+    <c:if test="${deleteMessage != null}">
+        <div
+      id="delete-message-model"
+      class="flex items-center justify-center z-10 fixed inset-x-0 inset-y-0 bg-gray-900/70"
+    >
+      <div class="model bg-slate-100 w-2/6 rounded-lg">
+        <div class="flex flex-col items-center justify-center p-10">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="1em"
+              viewBox="0 0 512 512"
+              fill="#f43f5e"
+              class="text-3xl"
+            >
+              <path
+                d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"
+              />
+            </svg>
+          </div>
+
+          <div>
+            <p class="font-bold text-xl py-4">Error</p>
+          </div>
+
+          <div>
+            <p class="font-medium py-4 text-slate-500 text-center mb-2">
+              ${deleteMessage}
+            </p>
+          </div>
+
+          <div class="w-full text-center">
+            <button
+              class="cancel-btn w-full py-2 rounded-md mb-4 font-semibold border-solid border-2 border-gray-300"
+            >
+              OK BIẾT RỒI NÍ
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </c:if>
+    
 </main>
 <jsp:include page="/views/partials/adminFooter.jsp" />

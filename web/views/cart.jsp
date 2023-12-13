@@ -6,7 +6,7 @@
 
 
 <div class="main mb-100">
-    <form action="">
+    <form action="<c:url value="/cart/update"/>" method="POST">
       <table class="grid wide table-cart">
         <thead class="cart-thead">
           <tr>
@@ -19,100 +19,86 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="product-remove">
-              <a href="#">
-                <svg
-                  class="remove-icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="1em"
-                  viewBox="0 0 448 512"
-                >
-                  <path
-                    d="M170.5 51.6L151.5 80h145l-19-28.4c-1.5-2.2-4-3.6-6.7-3.6H177.1c-2.7 0-5.2 1.3-6.7 3.6zm147-26.6L354.2 80H368h48 8c13.3 0 24 10.7 24 24s-10.7 24-24 24h-8V432c0 44.2-35.8 80-80 80H112c-44.2 0-80-35.8-80-80V128H24c-13.3 0-24-10.7-24-24S10.7 80 24 80h8H80 93.8l36.7-55.1C140.9 9.4 158.4 0 177.1 0h93.7c18.7 0 36.2 9.4 46.6 24.9zM80 128V432c0 17.7 14.3 32 32 32H336c17.7 0 32-14.3 32-32V128H80zm80 64V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16z"
-                  />
-                </svg>
-              </a>
-            </td>
+            <c:forEach var="line" items="${cart.getItems()}" >
+                <tr>
+                    <td class="product-remove">
+                      <a href="<c:url value="/cart/update?line-productId=${line.getProduct().getProductId()}&quantity-input=0"/>">
+                        <svg
+                          class="remove-icon"
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="1em"
+                          viewBox="0 0 448 512"
+                        >
+                          <path
+                            d="M170.5 51.6L151.5 80h145l-19-28.4c-1.5-2.2-4-3.6-6.7-3.6H177.1c-2.7 0-5.2 1.3-6.7 3.6zm147-26.6L354.2 80H368h48 8c13.3 0 24 10.7 24 24s-10.7 24-24 24h-8V432c0 44.2-35.8 80-80 80H112c-44.2 0-80-35.8-80-80V128H24c-13.3 0-24-10.7-24-24S10.7 80 24 80h8H80 93.8l36.7-55.1C140.9 9.4 158.4 0 177.1 0h93.7c18.7 0 36.2 9.4 46.6 24.9zM80 128V432c0 17.7 14.3 32 32 32H336c17.7 0 32-14.3 32-32V128H80zm80 64V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16z"
+                          />
+                        </svg>
+                      </a>
+                    </td>
 
-            <td class="product-thumbnail">
-              <a href="https://dici.themes.zone/main/product/woo-ninja/">
-                <img
-                  class="product-img"
-                  src="https://mldrbgfat3wx.i.optimole.com/SQPHnU0-FGk4D64U/w:100/h:100/q:auto/rt:fill/g:ce/https://dici.themes.zone/main/wp-content/uploads/sites/8/2018/04/DC_Products_6.jpg"
-                  alt=""
-                />
-              </a>
-            </td>
+                    <td class="product-thumbnail">
+                      <a href="<c:url value="/products/details/${line.getProduct().getSlug()}?id=${line.getProduct().getProductId()}" />">
+                        <img
+                          class="product-img"
+                          src="${line.getProduct().getImageUrl()}"
+                          alt=""
+                        />
+                      </a>
+                    </td>
 
-            <td class="product-name" data-title="Product">
-              <a href="#" class="title"
-                >14K Gold 9" Diamond Ankle Bracelet
-              </a>
-            </td>
+                    <td class="product-name" data-title="Product">
+                        <a href="<c:url value="/products/details/${line.getProduct().getSlug()}?id=${line.getProduct().getProductId()}" />" class="title"
+                          >14K Gold 9" Diamond Ankle Bracelet
+                        </a>
+                        <div class="flex flex-col ml-10">
+                            <span class="variation">Color: ${line.getProduct().getColor().getColor()}</span>
+                            <span class="variation">Size: ${line.getProduct().getSize().getSize()}</span>
+                        </div>
+                    </td>
+                    
+                    <c:choose>
+                        <c:when test="${productsPromotion_id.contains(line.getProduct().getProductId())}">
+                    <td class="product-price" data-title="Price">
+                        <div class="price-wrapper">
+                            <span class="item-quantity"><span class="new-price">$ ${line.getProduct().formattedPrice(line.getProduct().salePrice())}</span> <span class="old-price">$ ${line.getProduct().formattedPrice()}</span></span>
+                        </div>
+                    </td>
 
-            <td class="product-price" data-title="Price">
-              <span>$ 15.00</span>
-            </td>
+                    <td class="product-quantity" data-title="Quantity">
+                        <div class="quantity-wrapper">
+                            <span class="decrease-btn">-</span>
+                            <input type="text" class="quantity-input" name="quantity-input" value="${line.getQuantity()}" />
+                            <input type="hidden" name="line-productId" value="${line.getProduct().getProductId()}">
+                            <span class="increase-btn">+</span>
+                        </div>
+                    </td>
 
-            <td class="product-quantity" data-title="Quantity">
-              <div class="quantity">
-                <input type="number" class="quantity-input" value="1" />
-              </div>
-            </td>
+                    <td class="product-subtotal" data-title="Subtotal">
+                      <span>$ ${line.formattedSubtotal(line.getSubTotalSale(line.getProduct().salePrice()))}</span>
+                    </td>
+                        </c:when>
+                        <c:otherwise>
+                    <td class="product-price" data-title="Price">
+                        <span>$ ${line.getProduct().formattedPrice()}</span>
+                    </td>
 
-            <td class="product-subtotal" data-title="Subtotal">
-              <span>$ 15.00</span>
-            </td>
-          </tr>
+                    <td class="product-quantity" data-title="Quantity">
+                        <div class="quantity-wrapper">
+                            <span class="decrease-btn">-</span>
+                            <input type="text" class="quantity-input" name="quantity-input" value="${line.getQuantity()}" />
+                            <input type="hidden" name="line-productId" value="${line.getProduct().getProductId()}">
+                            <span class="increase-btn">+</span>
+                        </div>
+                    </td>
 
-          <tr>
-            <td class="product-remove">
-              <a href="#">
-                <svg
-                  class="remove-icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="1em"
-                  viewBox="0 0 448 512"
-                >
-                  <path
-                    d="M170.5 51.6L151.5 80h145l-19-28.4c-1.5-2.2-4-3.6-6.7-3.6H177.1c-2.7 0-5.2 1.3-6.7 3.6zm147-26.6L354.2 80H368h48 8c13.3 0 24 10.7 24 24s-10.7 24-24 24h-8V432c0 44.2-35.8 80-80 80H112c-44.2 0-80-35.8-80-80V128H24c-13.3 0-24-10.7-24-24S10.7 80 24 80h8H80 93.8l36.7-55.1C140.9 9.4 158.4 0 177.1 0h93.7c18.7 0 36.2 9.4 46.6 24.9zM80 128V432c0 17.7 14.3 32 32 32H336c17.7 0 32-14.3 32-32V128H80zm80 64V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16z"
-                  />
-                </svg>
-              </a>
-            </td>
-
-            <td class="product-thumbnail">
-              <a href="https://dici.themes.zone/main/product/woo-ninja/">
-                <img
-                  class="product-img"
-                  src="https://mldrbgfat3wx.i.optimole.com/SQPHnU0-FGk4D64U/w:100/h:100/q:auto/rt:fill/g:ce/https://dici.themes.zone/main/wp-content/uploads/sites/8/2018/04/DC_Products_6.jpg"
-                  alt=""
-                />
-              </a>
-            </td>
-
-            <td class="product-name" data-title="Product">
-              <a href="#" class="title"
-                >14K Gold 9" Diamond Ankle Bracelet
-              </a>
-            </td>
-
-            <td class="product-price" data-title="Price">
-              <span>$ 15.00</span>
-            </td>
-
-            <td class="product-quantity" data-title="Quantity">
-              <div class="quantity">
-                <input type="number" class="quantity-input" value="1" />
-              </div>
-            </td>
-
-            <td class="product-subtotal" data-title="Subtotal">
-              <span>$ 15.00</span>
-            </td>
-          </tr>
-
+                    <td class="product-subtotal" data-title="Subtotal">
+                      <span>$ ${line.formattedSubtotal(line.getSubTotal())}</span>
+                    </td>
+                        </c:otherwise>
+                    </c:choose>
+                   
+              </tr>
+            </c:forEach>
           <tr class="table-action">
             <td colspan="6" style="border: none">
               <div class="coupon mt-40">
@@ -130,7 +116,7 @@
               </div>
               <button
                 type="submit"
-                class="btn btn-m btn--disabled update-quantity-btn mt-40 fs-12"
+                class="update-cart-btn btn btn-m update-quantity-btn mt-40 fs-12"
               >
                 Update cart
               </button>
@@ -148,7 +134,7 @@
           <ul class="total-list">
             <li class="mt-40">
               <h3 class="total-sub-title">Subtotal</h3>
-              <span class="cart-highlight">$ 30.00</span>
+              <span class="cart-highlight">$ ${cart.getTotalCart()}</span>
             </li>
 
             <li>
@@ -166,7 +152,7 @@
 
             <li style="border-bottom: none">
               <h3 class="total-sub-title">Total</h3>
-              <span class="cart-highlight fs-18">$ 65.00</span>
+              <span class="cart-highlight fs-18">$ ${cart.getTotalCart()}</span>
             </li>
           </ul>
 
@@ -177,5 +163,6 @@
       </div>
     </div>
   </div>
-
+<input type="text" class="myInput" placeholder="Input 1">
+  <input type="text" class="myInput" placeholder="Input 2">
 <jsp:include page="/views/partials/siteFooter.jsp" />

@@ -4,6 +4,7 @@
  */
 package store.data;
 
+import store.util.DBUtil;
 import java.util.List;
 import store.business.Size;
 
@@ -20,6 +21,35 @@ public class SizeDB {
        String query = "SELECT s FROM Size s";
 
        TypedQuery<Size> q = em.createQuery(query, Size.class);
+
+       List<Size> sizes;
+
+       try {
+           sizes = q.getResultList();
+
+           if(sizes == null || sizes.isEmpty())
+           { 
+               sizes = null;
+           }
+       }
+       finally {
+           em.close();
+       }
+
+       return sizes;
+    }
+    
+    public static List<Size> selectAvailableColor(long unavailableColor) {
+       EntityManager em = DBUtil.getEmFactory().createEntityManager();
+
+       String query = "SELECT s FROM Size s "
+               + "WHERE s.sizeId != :unavailableColor";
+       
+       
+
+       TypedQuery<Size> q = em.createQuery(query, Size.class);
+       
+       q.setParameter("unavailableColor", unavailableColor);
 
        List<Size> sizes;
 

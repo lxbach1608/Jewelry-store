@@ -84,4 +84,6 @@
 </body>
     <script src="<c:url value="/js/shop.js" />"></script>
     <script src="<c:url value="/js/details.js" />"></script>
+    <script src="<c:url value="/js/account.js" />"></script>
+    <script src="<c:url value="/js/search.js" />"></script>
 </html>

@@ -1,6 +1,7 @@
 
 package store.data;
 
+import store.util.DBUtil;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -112,6 +113,36 @@ public class InventoryDB {
         TypedQuery<Inventory> q = em.createQuery(qString, Inventory.class);
         
         q.setParameter("product", product);
+        
+        Inventory result = null;
+        
+        try {
+            result = q.getSingleResult();
+            
+        } catch (NoResultException ex) {
+            return null;
+            
+        } finally {
+            em.close();
+            
+        }
+        
+        return (Inventory)result;
+    }
+    
+    public static Inventory selectInventory(long productId, long sizeId, long colorId) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        String qString = "SELECT i FROM Inventory i " +
+                 "WHERE i.product.productId = :productId " +
+                 "AND i.product.color.colorId = :colorId " +
+                 "AND i.product.size.sizeId = :sizeId";
+        
+        TypedQuery<Inventory> q = em.createQuery(qString, Inventory.class);
+        
+        q.setParameter("productId", productId);
+         q.setParameter("sizeId", sizeId);
+          q.setParameter("colorId", colorId);
         
         Inventory result = null;
         

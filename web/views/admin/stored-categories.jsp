@@ -146,7 +146,7 @@
 
                         <td class="flex flex-col py-2 px-4 justify-center" style="min-height: 59px">
                             <c:forEach var="child" items="${category.getChildren()}">
-                                <div class="flex items-center justify-center">
+                                <div class="flex items-center">
                             <span class="text-xs text-gray-500 pr-1">
                               <svg
                                 stroke="currentColor"

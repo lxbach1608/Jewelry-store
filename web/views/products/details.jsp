@@ -48,28 +48,30 @@
           <h2 class="product-content__title">${product.getName()}</h2>
 
           <div class="price-wrapper">
-              <c:if test="${True}">
-                <span class="old-price">$ 677.35</span>
-                <span class="new-price">$ 524.40</span>
+              
+              <c:if test="${productsPromotion_id.contains(product.getProductId())}" >
+                <span class="old-price">$ ${product.getPrice()}</span>
+                <span class="new-price">$ ${product.formattedPrice(product.salePrice())}</span>
               </c:if>
-              <span class="price">$ 524.40</span>
+
+                <c:if test="${productsPromotion_id.contains(product.getProductId()) == false}" >
+                    <span class="price">$ ${product.formattedPrice()}</span>
+                </c:if>
           </div>
 
           <p class="product-desc">
             ${product.getDescription()}
           </p>
-
-          <form action="<c:url value="/cart/add" />" method="POST">
-            <input type="hidden" name="form-add-to-cart-productId" value="${product.getProductId()}">
-            <input type="hidden" name="form-add-to-cart-size" value="">
-            <input type="hidden" name="form-add-to-cart-color" value="">
+          
+            <form action="<c:url value="/cart/add"/>" class="variation-form" method="POST">
+                <input type="hidden" name="form-add-to-cart-productId" value="${product.getProductId()}">
+                <input type="hidden" name="form-add-to-cart-color" value="${colorId}">
+                <input type="hidden" name="form-add-to-cart-size" value="${sizeId}">
 
             <div class="mb-40">
-              <div class="color-wrapper">
+            <form action="" class="variation-form" method="POST">                
+            <div class="color-wrapper variation-wrapper">
                 <span class="variation-name">Color</span>
-                <select name="" id="" style="display: none">
-                  <option value=""></option>
-                </select>
                 <div class="selection selection-js">
                   <div class="selection-wrapper">
                     <span>Choose an option</span>
@@ -81,14 +83,10 @@
                         </c:forEach>
                     </ul>
                 </div>
-              </div>
+            </div>
 
-              <div class="size-wrapper">
+              <div class="size-wrapper variation-wrapper">
                 <span class="variation-name">Size</span>
-                <select name="" id="" style="display: none">
-                  <option value=""></option>
-                </select>
-
                 <div class="selection selection-js">
                   <div class="selection-wrapper">
                     <span>Choose an option</span>
@@ -99,7 +97,11 @@
                             <li data-id="${size.getSizeId()}">${size.getSize()}</li>
                         </c:forEach>
                     </ul>
+                    
                 </div>
+                    <c:if test="${globalMessage != null}">
+                        <p class="message message--error ml-20 mt-20">${globalMessage}</p>
+                    </c:if>
               </div>
             </div>
 
@@ -108,6 +110,7 @@
                 <input type="text" class="quantity-input" name="quantity-input" value="1" />
                 <span class="increase-btn">+</span>
             </div>
+                    <input type="hidden" name="prev" value="<%= request.getRequestURL() %>"/>
             <button class="btn btn-m">Add to cart</button>
           </form>
 

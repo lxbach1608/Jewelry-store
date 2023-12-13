@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <aside>
-    <div class="w-64 bg-gray-800 h-screen">
+    <div class="w-64 bg-gray-800 h-full">
         
         <div class="wrapper w-64 pt-5">
           <ul>

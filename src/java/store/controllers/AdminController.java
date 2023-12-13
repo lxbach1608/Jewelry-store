@@ -10,11 +10,13 @@ import java.util.List;
 
 import store.business.Category;
 import store.business.Colour;
+import store.business.Invoice;
 
 import store.business.Product;
 import store.business.Size;
 import store.data.CategoryDB;
 import store.data.ColourDB;
+import store.data.InvoiceDB;
 import store.data.ProductDB;
 import store.data.PromotionDB;
 import store.data.SizeDB;
@@ -70,21 +72,26 @@ public class AdminController extends HttpServlet {
         
         HttpSession session = request.getSession();
         
-        List<Product> products = ProductDB.selectProducts();
+        try {
+            List<Product> products = ProductDB.selectProducts();
 
-        session.setAttribute("products", products);
+            request.setAttribute("products", products);
+
+            List<Category> categories = CategoryDB.selectCategories();
+
+            request.setAttribute("categories", categories);
+
+            List<Size> sizes = SizeDB.selectSizes();
+
+            request.setAttribute("sizes", sizes);
+
+            List<Colour> colors = ColourDB.selectColors();
+
+            request.setAttribute("colors", colors);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
         
-        List<Category> categories = CategoryDB.selectCategories();
-        
-        session.setAttribute("categories", categories);
-        
-        List<Size> sizes = SizeDB.selectSizes();
-        
-        session.setAttribute("sizes", sizes);
-        
-        List<Colour> colors = ColourDB.selectColors();
-        
-        session.setAttribute("colors", colors);
         
         return "/views/admin/stored-products.jsp";
     }
@@ -95,7 +102,7 @@ public class AdminController extends HttpServlet {
         
         List<Category> categories = CategoryDB.selectCategories();
         
-        session.setAttribute("categories", categories);
+        request.setAttribute("categories", categories);
         
         return "/views/admin/stored-categories.jsp";
     }
@@ -103,16 +110,30 @@ public class AdminController extends HttpServlet {
     private String storedPromotions(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         
-        List<Promotion> promotions = PromotionDB.selectPromotions();
+        try {
+            List<Promotion> promotions = PromotionDB.selectPromotions();
+            
+            System.out.println(promotions);
         
-        session.setAttribute("promotions", promotions);
-        
+            request.setAttribute("promotions", promotions);
+            
+        } catch(Exception ex) {
+            System.out.println(ex);
+        }
         
         return "/views/admin/stored-promotions.jsp";
     }
     
     private String storedOrders(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
+        
+        try {
+            List<Invoice> invoices = InvoiceDB.selectInvoices();
+            
+            request.setAttribute("invoices", invoices);
+        } catch(Exception ex) {
+            System.out.println(ex);
+        }
         
         return "/views/admin/stored-orders.jsp";
     }

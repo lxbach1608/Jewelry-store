@@ -1,10 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package store.business;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,8 +19,19 @@ public class LineItem implements Serializable {
     
     private int quantity = 1;
     
+    private double subTotal;
+    
     @OneToOne
     private Product product;
+
+    public double getSubTotal() {
+        return product.getPrice() * quantity;
+    }
+    
+    public double getSubTotalSale(double salePrice) {
+        return salePrice * quantity;
+    }
+
 
     public Product getProduct() {
         return product;
@@ -46,5 +55,13 @@ public class LineItem implements Serializable {
 
     public void setLineItemId(Long lineItemId) {
         this.lineItemId = lineItemId;
+    }
+    
+    public String formattedSubtotal(double price) {
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        
+        String formattedPrice = decimalFormat.format(price);
+        
+        return formattedPrice;
     }
 }

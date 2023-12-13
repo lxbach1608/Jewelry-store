@@ -1,0 +1,230 @@
+.flex.justify-center {
+  justify-content: center;
+}
+
+.flex.items-center {
+  align-items: center;
+}
+
+.mr-20 {
+  margin-right: 20px;
+}
+
+.p-10 {
+  padding: 10px;
+}
+
+.service-wrapper {
+  /* width: 300px; */
+  margin-top: 40px;
+  padding: 10px;
+}
+
+.service-icon {
+  font-size: 40px;
+  color: #2fbfb5;
+}
+
+.service-item {
+}
+
+.service-body {
+}
+
+.service-body p {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.service-body span {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: #696969;
+}
+
+/* Banner */
+.banner-wrapper {
+  height: 273px;
+}
+
+.banner-item {
+  position: relative;
+  width: 600px;
+  padding: 10px;
+}
+
+.she-said-yes {
+  object-fit: contain;
+  background: url("https://mldrbgfat3wx.i.optimole.com/SQPHnU0-eUSAqmbe/w:661/h:310/q:auto/https://dici.themes.zone/main/wp-content/uploads/sites/8/2019/04/main_b_1_gg.jpg")
+    center / contain no-repeat;
+}
+
+.she-said-yes p {
+  position: absolute;
+  top: 55px;
+  left: 60px;
+  text-align: left;
+  line-height: 1.4;
+  font-size: 3.6rem;
+  color: #363636;
+  font-family: var(--ff-butler);
+}
+
+.she-said-yes a {
+  position: absolute;
+  font-size: 1.4rem;
+  left: 60px;
+  top: 200px;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.happy-ever-after {
+  background: url("https://mldrbgfat3wx.i.optimole.com/SQPHnU0-kNPvLiIK/w:661/h:310/q:auto/https://dici.themes.zone/main/wp-content/uploads/sites/8/2019/04/main_b_2_m_m.jpg")
+    center / contain no-repeat;
+}
+
+.happy-ever-after p {
+  position: absolute;
+  top: 55px;
+  left: 180px;
+  text-align: left;
+  line-height: 1.4;
+  font-size: 3.6rem;
+  color: #363636;
+  font-family: var(--ff-butler);
+}
+
+.happy-ever-after a {
+  position: absolute;
+  font-size: 1.4rem;
+  left: 270px;
+  top: 140px;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* Outstanding */
+.outstanding {
+}
+
+.outstanding-heading {
+  font-size: 2.2rem;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.heading-img {
+  padding: 20px 0;
+  /* width: 108px; */
+  height: 55px;
+}
+
+/* banner 2 */
+.banner-wrapper-2 {
+  height: 410px;
+}
+
+.banner-item-2 + .banner-item-2 {
+  margin-left: 20px;
+}
+
+.emilia {
+  position: relative;
+  width: 30%;
+  background: url("https://mldrbgfat3wx.i.optimole.com/SQPHnU0-cMz15iZn/w:357/h:408/q:auto/https://dici.themes.zone/main/wp-content/uploads/sites/8/2019/04/banner_1.jpg")
+    center / contain no-repeat;
+}
+
+.emilia p {
+  position: absolute;
+}
+
+.emilia a {
+  position: absolute;
+}
+
+.you-earned-it {
+  position: relative;
+  padding: 10px;
+  width: 70%;
+  background: url("https://mldrbgfat3wx.i.optimole.com/SQPHnU0-4C5v-ow7/w:742/h:409/q:auto/https://dici.themes.zone/main/wp-content/uploads/sites/8/2019/04/banner2.jpg")
+    center / cover no-repeat;
+}
+
+.you-earned-it span {
+  position: absolute;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  font-weight: 400;
+  top: 60px;
+  left: 100px;
+}
+
+.you-earned-it p {
+  position: absolute;
+  top: 80px;
+  left: 100px;
+  text-align: left;
+  line-height: 1.4;
+  font-size: 4.5rem;
+  color: #363636;
+  font-family: var(--ff-butler);
+}
+
+.you-earned-it a {
+  position: absolute;
+  font-size: 1.4rem;
+  left: 100px;
+  top: 250px;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* slider */
+.slider {
+  position: relative;
+}
+
+.heading-wrapper {
+  position: absolute;
+  width: 500px;
+  z-index: 2;
+  top: 180px;
+}
+
+.slider h1 {
+    /* position: absolute; */
+  font-size: 7rem;
+  z-index: 2;
+  font-family: 'Mrs Saint Delafield', cursive;
+  margin-bottom:  20px;
+  color: rgb(190, 86, 86);
+}
+
+.slider h2 {
+  /* position: absolute; */
+  font-size: 5rem;
+  z-index: 2;
+  font-family: var(--ff-butler);
+}
+
+.slider p {
+  /* position: absolute; */
+  font-family: var(--ff-pop);
+  z-index: 2;
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  margin-top: 15px;
+}
+
+.big-banner {
+  left: -120px;
+  width: 120%;
+  background: url("https://mldrbgfat3wx.i.optimole.com/SQPHnU0-BKtY39N4/w:1024/h:444/q:auto/https://dici.themes.zone/main/wp-content/uploads/sites/8/revslider/main/dici_banner_1_opt.jpg")
+    center / cover no-repeat;
+  padding-top: 50%;
+  position: relative;
+  z-index: 1;
+}

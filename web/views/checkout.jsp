@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/views/partials/siteHeader.jsp" />
 
 <jsp:include page="/views/partials/breadcrumb.jsp" />
@@ -6,24 +7,26 @@
     <div class="center">
       <div class="checkout-wrapper">
         <!-- Address -->
+        <form action="<c:url value="/user/address/update"/>" method="POST">
         <div class="detail-address">
           <h3 class="order-title">Billing details</h3>
           <div class="address-item flex justify-between">
             <div class="address-wrapper">
               <label for="" class="address-label required">First name</label>
-              <input type="text" class="address-input" />
+              <input type="text" name="address-update-firstname" value="${customer.getFirstName()}" class="address-input" required />
             </div>
             <div class="address-wrapper">
               <label for="" class="address-label required">Last name</label>
-              <input type="text" class="address-input" />
+              <input type="text" name="address-update-lastname" value="${customer.getLastName()}" class="address-input" required />
             </div>
           </div>
 
           <div class="address-item">
             <div class="address-wrapper">
               <label for="" class="address-label required">Country</label>
-              <select name="country" class="address-select">
+              <select name="address-update-region" class="address-select">
                 <option value="Vietnam">Viet Nam</option>
+                <option value="Thailan">Thai Lan</option>
               </select>
             </div>
           </div>
@@ -31,7 +34,11 @@
           <div class="address-item">
             <div class="address-wrapper">
               <label for="" class="address-label required">Town / City</label>
-              <input type="text" class="address-input" />
+              <select name="address-update-city" class="address-select">
+                <option value="Ho Chi Minh">Ho Chi Minh</option>
+                <option value="Ha Noi">Ha Noi</option>
+                <option value="Da Nang">Da Nang</option>
+              </select>
             </div>
           </div>
 
@@ -40,14 +47,14 @@
               <label for="" class="address-label required"
                 >Street address</label
               >
-              <input type="text" class="address-input" />
+              <input type="text" name="address-update-addressline" value="${address.getAddressLine()}" class="address-input" required/>
             </div>
           </div>
 
           <div class="address-item">
             <div class="address-wrapper">
               <label for="" class="address-label required">Phone</label>
-              <input type="text" class="address-input" />
+              <input type="text" name="address-update-phone" value="${customer.getPhoneNumber()}" class="address-input" required/>
             </div>
           </div>
 
@@ -56,7 +63,7 @@
               <label for="" class="address-label required"
                 >Email address</label
               >
-              <input type="text" class="address-input" />
+              <input type="text" readonly="" value="${user.getEmail()}" class="address-input" required/>
             </div>
           </div>
 
@@ -66,7 +73,7 @@
                 >Order notes (optional)</label
               >
               <textarea
-                name=""
+                name="address-update-note"
                 class="address-note"
                 id=""
                 cols="30"
@@ -75,6 +82,11 @@
             </div>
           </div>
         </div>
+            <c:if test="${orderMessage != null}">
+                <p class="message message--error ml-20 mt-40 pull-right">${orderMessage}</p>
+            </c:if>
+        <button type="submit" class="btn mt-40">Update</button>
+        </form>
 
         <!-- Order -->
         <div class="checkout-product">
@@ -88,21 +100,50 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="product-name">
-                    <span>14K Gold 9" Diamond Ankle Bracelet</span>
-                    <br />
-                    &nbsp;
-                    <strong class="product-quantity">×&nbsp;2</strong>
-                  </td>
-                  <td class="product-total">$ 30.00</td>
-                </tr>
+                  <c:forEach var="line" items="${cart.getItems()}">
+                    <c:choose>
+                        <c:when test="${productsPromotion_id.contains(line.getProduct().getProductId())}">
+                        <tr>
+                            <td class="product-name">
+                              <span>14K Gold 9" Diamond Ankle Bracelet</span>
+                              <br />
+                              &nbsp;
+                              <strong class="product-quantity">${line.getQuantity()}&nbsp; ×</strong>
+                              <strong class="product-quantity">&nbsp;${line.getProduct().formattedPrice(line.getProduct().salePrice())}</strong>
+                              <div class="flex flex-col text-right">
+                                  <span class="variation">Color: ${line.getProduct().getColor().getColor()}</span>
+                                  <span class="variation">Size: ${line.getProduct().getSize().getSize()}</span>
+                              </div>
+                            </td>
+                            <td class="product-total">$ ${line.formattedSubtotal(line.getSubTotalSale(line.getProduct().salePrice()))}</td>
+                        </tr>
+                        </c:when>
+                        <c:otherwise>
+                        <tr>
+                            <td class="product-name">
+                              <span>14K Gold 9" Diamond Ankle Bracelet</span>
+                              <br />
+                              &nbsp;
+                              <strong class="product-quantity">${line.getQuantity()}&nbsp; ×</strong>
+                              <strong class="product-quantity">&nbsp;${line.getProduct().formattedPrice()}</strong>
+                              <div class="flex flex-col text-right w-max pull-right">
+                                  <span class="variation">Color: ${line.getProduct().getColor().getColor()}</span>
+                                  <span class="variation">Size: ${line.getProduct().getSize().getSize()}</span>
+                              </div>
+                            </td>
+                            <td class="product-total">$ ${line.formattedSubtotal(line.getSubTotal())}</td>
+                      </tr>
+                        </c:otherwise>
+                    </c:choose>
+                    
+                  </c:forEach>
+                
 
                 <tr class="non-border-bottom">
                   <td class="product-name">
                     <span>SUBTOTAL</span>
                   </td>
-                  <td class="product-total">$ 30.00</td>
+                  <td class="product-total">$ ${cart.getTotalCart()}</td>
                 </tr>
 
                 <tr class="non-border-bottom">
@@ -120,7 +161,7 @@
                     <span>TOTAL</span>
                   </td>
                   <td class="product-total">
-                    <strong class="amount">$ 65.00</strong>
+                    <strong class="amount">$ ${cart.getTotalCart()}</strong>
                   </td>
                 </tr>
               </tbody>
@@ -177,10 +218,13 @@
                   </div>
                 </div>
               </div>
+                
+                <form action="<c:url value="/orders/placed"/>" method="POST">
+                    <button type="submit" class="btn btn--active place-order-btn">
+                      Place Order
+                    </button>
+                </form>
 
-              <button type="submit" class="btn btn--active place-order-btn">
-                Place Order
-              </button>
             </div>
           </div>
         </div>

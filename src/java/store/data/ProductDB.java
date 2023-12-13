@@ -1,6 +1,7 @@
 
 package store.data;
 
+import store.util.DBUtil;
 import store.business.Product;
 
 import java.util.List;
@@ -110,11 +111,9 @@ public class ProductDB {
     public static Product selectProduct(long id, int colorId, int sizeId) {
     EntityManager em = DBUtil.getEmFactory().createEntityManager();
     
-
-    
     String qString = "SELECT p FROM Product p " +
                     "WHERE p.productId = :id AND p.size.sizeId = :sizeId AND p.color.colorId = :colorId";
-    
+
     TypedQuery<Product> q = em.createQuery(qString, Product.class);
     
     q.setParameter("id", id);
@@ -162,13 +161,119 @@ public class ProductDB {
         return products;
     }
     
+    public static List<Product> selectProducts(long productId) {
+        
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        String query = "SELECT p FROM Product p WHERE p.productId = :productId";
+        
+        TypedQuery<Product> q = em.createQuery(query, Product.class);
+        
+        q.setParameter("productId", productId);
+
+        List<Product> products;
+        
+        try {
+            products = q.getResultList();
+            
+            if(products == null || products.isEmpty())
+            { 
+                products = null;
+            }
+        }
+        finally {
+            em.close();
+        }
+        
+        return products;
+    }
+    
+    public static List<Product> selectProductsByCategory(long categoryId) {
+        
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        String query = "SELECT p FROM Product p JOIN p.category c WHERE c.categoryId = :categoryId GROUP BY p.productId";
+        
+        TypedQuery<Product> q = em.createQuery(query, Product.class);
+        
+        q.setParameter("categoryId", categoryId);
+
+        List<Product> products;
+        
+        try {
+            products = q.getResultList();
+            
+            if(products == null || products.isEmpty())
+            { 
+                products = null;
+            }
+        }
+        finally {
+            em.close();
+        }
+        
+        return products;
+    }
+    
     public static List<Product> selectDistinctProducts() {
         
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
-        String query = "SELECT p FROM Product p GROUP BY p.slug";
+        String query = "SELECT p FROM Product p GROUP BY p.productId";
         
 //        String query = "SELECT y FROM Product y GROUP BY y.price";
+        
+        TypedQuery<Product> q = em.createQuery(query, Product.class);
+        
+        List<Product> products;
+        
+        try {
+            products = q.getResultList();
+            
+            if(products == null || products.isEmpty())
+            { 
+                products = null;
+            }
+        }
+        finally {
+            em.close();
+        }
+        
+        return products;
+    }
+    
+    public static Product selectDistinctProducts(long productId) {
+        
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        String query = "SELECT p FROM Product p WHERE p.productId = :productId GROUP BY p.productId";
+        
+//        String query = "SELECT y FROM Product y GROUP BY y.price";
+        
+        TypedQuery<Product> q = em.createQuery(query, Product.class);
+        
+        q.setParameter("productId", productId);
+        
+        Product result = null;
+    
+        try {
+            result = q.getSingleResult();
+
+        } catch (NoResultException ex) {
+            return null;
+
+        } finally {
+            em.close();
+        }
+
+        return (Product)result;
+    }
+    
+    public static List<Product> selectProductsOnPromotion() {
+        
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        String query = "SELECT p FROM Product p JOIN p.category c WHERE c.promotion IS NOT NULL GROUP BY p.productId";
         
         TypedQuery<Product> q = em.createQuery(query, Product.class);
         

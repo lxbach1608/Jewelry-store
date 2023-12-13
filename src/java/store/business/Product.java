@@ -3,16 +3,15 @@ package store.business;
 import java.text.DecimalFormat;
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import store.data.CategoryDB;
 import store.data.InventoryDB;
+import store.data.PromotionDB;
 
 
 @Entity
@@ -113,6 +112,19 @@ public class Product implements Serializable {
         this.slug = slug;
     }
     
+//    public Category getCategory() {
+//        Category category = null;
+//        
+//        try {
+//            category = CategoryDB.selectOwnCategoryById(productId);
+//        } catch(Exception ex) {
+//            System.out.println(ex);
+//        }
+//        
+//        
+//        return category;
+//    }
+    
     public int getQuantity() {
         int quantity = 0;
         
@@ -123,10 +135,25 @@ public class Product implements Serializable {
         return quantity;
     }
     
-    public String formattedPrice(double price) {
+    public double salePrice() {
+        
+        Double p = PromotionDB.selectByProductId(productId);
+        
+        return price - price * p;
+    }
+    
+    public String formattedPrice() {
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
         
-        String formattedPrice = "$" + decimalFormat.format(price);
+        String formattedPrice = decimalFormat.format(price);
+        
+        return formattedPrice;
+    }
+    
+    public String formattedPrice(double salePrice) {
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        
+        String formattedPrice = decimalFormat.format(salePrice);
         
         return formattedPrice;
     }

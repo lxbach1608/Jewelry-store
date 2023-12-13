@@ -6,92 +6,161 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import store.business.Cart;
 import store.business.Colour;
 import store.business.LineItem;
 import store.business.Product;
 import store.business.Size;
-import store.data.ColourDB;
-import store.data.LineItemDB;
 import store.data.ProductDB;
-import store.data.SizeDB;
 
 public class CartController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
         throws ServletException, IOException {
         
+        String url;
+        
         String requestURI = request.getRequestURI();
         
+        String rootPath = getServletContext().getContextPath();
+        
         if(requestURI.endsWith("/cart/add")) {
-            add(request, response);
+            boolean isAdd = add(request, response);
+            
+            if(!isAdd) {
+                getServletContext().getRequestDispatcher("/views/products/details.jsp").forward(request, response);
+                
+                return;
+            }
         }
         
-        String rootPath = getServletContext().getContextPath() + "/admin/stored/products";
-
-        response.sendRedirect(rootPath);
+        if(requestURI.endsWith("/cart/update")) {
+            url = update(request, response);
+        }
         
-//        response.setContentType("application/json");
-
-//        // Create a JSON string
-//        String jsonString = "{\"message\": \"Hello, this is a JSON response!\"}";
-//
-//        // Write the JSON string to the response
-//        response.getWriter().write(jsonString);
-
-
-        
+        response.sendRedirect(rootPath + "/cart/view");
     }
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
         throws ServletException, IOException {
         
+        String url = "/views/cart.jsp";
+        
+        String requestURI = request.getRequestURI();
+         
+        if(requestURI.endsWith("/cart/view")) {
+            url = "/views/cart.jsp";
+        }
+        
+        if(requestURI.endsWith("/cart/update")) {
+            url = update(request, response);
+        }
+         
+        getServletContext().getRequestDispatcher(url).forward(request, response);
     }
     
     
-    private void add(HttpServletRequest request, HttpServletResponse response) {
+    private boolean add(HttpServletRequest request, HttpServletResponse response) {
+        
+        HttpSession session = request.getSession();
+        
         String idInput = request.getParameter("form-add-to-cart-productId");
-        
         String sizeInput = request.getParameter("form-add-to-cart-size");
-        
         String colorInput = request.getParameter("form-add-to-cart-color");
-        
         String quantityInput = request.getParameter("quantity-input");
         
-        long id = 0;
-        int sizeId = 0;
-        int colorId = 0;
-        int quantity = 0;
+        long id;
+        int sizeId;
+        int colorId;
+        int quantity;
         
         try {
             id = Long.parseLong(idInput);
             sizeId = Integer.parseInt(sizeInput);
             colorId = Integer.parseInt(colorInput);
             quantity = Integer.parseInt(quantityInput);
+            
         } catch(NumberFormatException ex) {
-            System.out.println("can't parse");
+            System.out.println("Error: " + ex);
+                
+            String globalMessage = "Error 505: when add product to cart";
+
+            request.setAttribute("globalMessage", globalMessage);
+            
+            return false;
         }
         
-        Size sizeInstance = null;
-        Colour colorInstance = null;
+        Cart cart = (Cart) session.getAttribute("cart");
+        
+        Product product = null;
         
         try {
-            sizeInstance = SizeDB.selectSize(sizeId);
-            colorInstance = ColourDB.selectColor(colorId);
+            product = ProductDB.selectProduct(id, colorId, sizeId);
+            Size s = product.getSize();
+            Colour c = product.getColor();
+
         } catch(Exception ex) {
-            System.out.println("Can't not get sizeIntance or colorInstance");
+            System.out.println("Error: " + ex);
+                
+            String globalMessage = "Product don't has these variation ! Please choose other variation";
+
+            request.setAttribute("globalMessage", globalMessage);
+            
+            return false;
         }
-        
-        Product p = ProductDB.selectProduct(id, colorId, sizeId);
-        
-        System.out.println(p);
-        
+
+
         LineItem li = new LineItem();
         
-        li.setProduct(p);
-        
+        li.setProduct(product);
         li.setQuantity(quantity);
         
-        LineItemDB.insert(li);
+        cart.addItem(li);
+        
+        session.setAttribute("cart", cart);
+        
+        return true;
+    }
+
+    private String update(HttpServletRequest request, HttpServletResponse response) {
+        String[] quantityInput = request.getParameterValues("quantity-input");
+        String[] lineProductId = request.getParameterValues("line-productId");
+        String redirect = request.getParameter("redirect");
+        
+        System.out.println(redirect);
+        
+        
+        HttpSession session = request.getSession();
+        
+        Cart cart = (Cart)session.getAttribute("cart");
+        
+        int id = 0;
+        int quantity = 0;
+        
+        for(int i = 0; i < quantityInput.length; i++) {
+            
+            try {
+                id = Integer.parseInt(lineProductId[i]);
+                quantity = Integer.parseInt(quantityInput[i]);
+                
+                if(quantity < 1 && quantity != 0) {
+                    continue;
+                    
+                }
+            } catch(NumberFormatException ex) {
+                continue;
+                
+            }
+            
+            cart.updateItem(id, quantity);
+        }
+        
+        if(redirect != null) {
+            return "/views/products/details.jsp";
+        }
+        
+        return "/views/cart.jsp";
     }
 }

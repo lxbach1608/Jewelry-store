@@ -3,19 +3,26 @@ document.addEventListener("DOMContentLoaded", function(e) {
     // Delete model
     const deleteModel = $("#product-delete-model");
     
+    const deleteMessageModel = $("#delete-message-model");
+    
     const cancelBtn = $(".cancel-btn");
     
     const deleteBtns = $(".delete-btn");
     
     cancelBtn.click((e) => {
         deleteModel.addClass("hidden");
+        deleteMessageModel.addClass("hidden");
     });
 
     deleteBtns.click((e) => {
         deleteModel.removeClass("hidden");
-        productId = e.currentTarget.attributes["data-id"].value;
+        productId = e.currentTarget.attributes["data-productId"].value;
+        sizeId = e.currentTarget.attributes["data-sizeId"].value;
+        colorId = e.currentTarget.attributes["data-colorId"].value;
         
         $("input[name*='delete-form-productId']").val(productId);
+        $("input[name*='delete-form-sizeId']").val(sizeId);
+        $("input[name*='delete-form-colorId']").val(colorId);
     });
     
     
@@ -45,8 +52,8 @@ document.addEventListener("DOMContentLoaded", function(e) {
         id = $(parent[0]).children("input[name*='_productId']").val();
         name = $(parent[0]).children("input[name*='_name']").val();
         desc = $(parent[0]).children("input[name*='_desc']").val();
-        size = $(parent[0]).children("input[name*='_size']").val();
-        color = $(parent[0]).children("input[name*='_color']").val();
+        sizeId = $(parent[0]).children("input[name*='_size']").val();
+        colorId = $(parent[0]).children("input[name*='_color']").val();
         imgUrl = $(parent[0]).children("input[name*='_imgUrl']").val();
         price = $(parent[0]).children("input[name*='_price']").val();
         slug = $(parent[0]).children("input[name*='_slug']").val();
@@ -87,6 +94,10 @@ document.addEventListener("DOMContentLoaded", function(e) {
             icon.replaceWith(folderIcons['openFolder']);
         }
         });
+        
+        // handle sizeId, colorId
+        $("input[name*='form-sizeId']").val(sizeId);
+        $("input[name*='form-colorId']").val(colorId);
         
 
         editModel.removeClass("hidden");

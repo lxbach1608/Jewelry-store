@@ -1,5 +1,6 @@
-<%@page contentType="text/html" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -15,6 +16,12 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+    
+    
 
     <!-- Butler font -->
     <link
@@ -42,11 +49,18 @@
     <!-- main.css -->
     <link rel="stylesheet" href="<c:url value="/public/css/main.css"/>" />
     
+    <!-- index.css -->
+    <link rel="stylesheet" href="<c:url value="/public/css/index.css"/>" />
+    
+    <!-- login-register.css -->
+    <link rel="stylesheet" href="<c:url value="/public/css/login_register.css"/>" />
+    
     <script
       src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
     ></script>
+    
 </head>
 <body>
     <header id="header">
@@ -55,7 +69,7 @@
         <div class="nav__wrapper">
           <ul class="nav__list">
             <li>
-              <a href="#">Home</a>
+              <a href="/JewelryStore/index.jsp">Home</a>
             </li>
             <li>
               <a href="#">About us</a>
@@ -68,11 +82,29 @@
             </li>
           </ul>
           <div class="action">
-            <a>
-              <i class="fa-solid fa-right-to-bracket"></i>
-              Sign in
-            </a>
-            <a>
+              
+              <c:if test="${user != null && user.getRole().getRole() == 'admin'}">
+                <a href="<c:url value="/admin/stored/products" />">
+                    <i class="fa-solid fa-user-tie"></i>
+                    Admin
+                </a>
+              </c:if>
+              
+              <c:if test="${user != null}">
+                <a href="<c:url value="/user/logout"/>">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    Sign out
+                </a>
+              </c:if>
+              
+              <c:if test="${user == null}">
+                <a href="<c:url value="/user/login"/>">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    Sign in
+                </a>
+              </c:if>
+            
+              <a href="<c:url value="/customers/dashboard"/>">
               <i class="fa-regular fa-user"></i>
               My account
             </a>
@@ -104,77 +136,97 @@
           <div class="sub-header__action">
             <!-- Search -->
             <div class="search">
-              <input placeholder="Search products..." />
+              <input id="search-input" placeholder="Search products..."/>
               <i class="ti-search search-icon"></i>
+              <!--Search-->
+              <div class="search-model hidden">
+                  <ul id="suggestions-container">
+<!--                      <li>
+                          <a href="" class="w-100">
+                            <div class="flex">
+                                <img class="search-img" src="https://mldrbgfat3wx.i.optimole.com/SQPHnU0-wHOXw_gG/w:auto/h:auto/q:auto/https://dici.themes.zone/main/wp-content/uploads/sites/8/2018/04/DC_Products_1.jpg"/>
+                                <div class="w-100">
+                                    <p>14K Gold 9" Diamond Ankle Bracelet</p>
+                                    <div class="price-wrapper text-right flex justify-between align-center">
+                                        <span class="category-lable mt-10">Bands</span>
+                                        <div>
+                                            <span class="old-price">$ 200.00</span>
+                                            <span class="new-price">$ 99.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </a>
+                      </li>-->
+                  </ul>
+              </div>
             </div>
             <i class="fa-regular fa-heart"></i>
 
             <div class="cart">
-              <span class="selected-quantity">3</span>
-              <a href="/cart.html"
+              <span class="selected-quantity">${cart.getCartQuantity()}</span>
+              <a href="<c:url value="/cart/view"/>"
                 ><i class="ti-shopping-cart cart-icon"></i
               ></a>
               <div class="cart-wrapper">
                 <h3 class="cart__title">CART</h3>
                 <ul class="cart-list">
-                  <li class="cart-item">
-                    <div class="title-img">
-                      <a href="#">
-                        <svg
-                          class="xmark-icon"
-                          xmlns="http://www.w3.org/2000/svg"
-                          height="14px"
-                          viewBox="-100 -100 584 712"
-                        >
-                          <path
-                            d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
-                          />
-                        </svg>
-                      </a>
-                      <img
-                        class="item-img"
-                        src="https://mldrbgfat3wx.i.optimole.com/SQPHnU0-FGk4D64U/w:68/h:68/q:auto/rt:fill/g:ce/https://dici.themes.zone/main/wp-content/uploads/sites/8/2018/04/DC_Products_6.jpg"
-                        alt=""
-                      />
-                      <span class="item-title"
-                        >14K Gold 9" Diamond Ankle Bracelet</span
-                      >
-                    </div>
-                    <span class="item-quantity">1 × $ 15.00</span>
-                  </li>
-
-                  <li class="cart-item">
-                    <div class="title-img">
-                      <a href="#">
-                        <svg
-                          class="xmark-icon"
-                          xmlns="http://www.w3.org/2000/svg"
-                          height="14px"
-                          viewBox="-100 -100 584 712"
-                        >
-                          <path
-                            d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
-                          />
-                        </svg>
-                      </a>
-                      <img
-                        class="item-img"
-                        src="https://mldrbgfat3wx.i.optimole.com/SQPHnU0-FGk4D64U/w:68/h:68/q:auto/rt:fill/g:ce/https://dici.themes.zone/main/wp-content/uploads/sites/8/2018/04/DC_Products_6.jpg"
-                        alt=""
-                      />
-                      <span class="item-title"
-                        >14K Gold 9" Diamond Ankle Bracelet</span
-                      >
-                    </div>
-                    <span class="item-quantity">1 × $ 15.00</span>
-                  </li>
+                    <c:forEach var="line" items="${cart.getItems()}">
+                    <li class="cart-item">
+                      <div class="title-img">
+                          <a href="<c:url value="/cart/update?line-productId=${line.getProduct().getProductId()}&quantity-input=0&redirect" />">
+                          <svg
+                            class="xmark-icon"
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="14px"
+                            viewBox="-100 -100 584 712"
+                          >
+                            <path
+                              d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+                            />
+                          </svg>
+                        </a>
+                        <img
+                          class="item-img"
+                          src="${line.getProduct().getImageUrl()}"
+                          alt=""
+                        />
+                        <div>
+                            <span class="item-title">
+                                14K Gold 9" Diamond Ankle Bracelet
+                            </span>
+                            <span class="flex flex-col text-right variation-wrapper">
+                                <span class="variation">Color: ${line.getProduct().getColor().getColor()}</span>
+                                <span class="variation">Size: ${line.getProduct().getSize().getSize()}</span>
+                            </span>
+                        </div>
+                        
+                      </div>
+                        <div class="flex justify-between align-items">
+                            
+                            <c:choose>
+                                <c:when test="${productsPromotion_id.contains(line.getProduct().getProductId())}">
+                                    <div class="price-wrapper">
+                                        <span class="item-quantity">${line.getQuantity()} × <span class="new-price">$ ${line.getProduct().formattedPrice(line.getProduct().salePrice())}</span> <span class="old-price">$ ${line.getProduct().formattedPrice()}</span></span>
+                                    </div>
+                                    
+                                    <span class="item-quantity">$ ${line.formattedSubtotal(line.getSubTotalSale(line.getProduct().salePrice()))}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="item-quantity">${line.getQuantity()} × $ ${line.getProduct().formattedPrice()}</span>
+                                    <span class="item-quantity">$ ${line.formattedSubtotal(line.getSubTotal())}</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </li>
+                    </c:forEach>
                 </ul>
                 <div class="subtotal">
                   <span>Subtotal:</span>
-                  <span class="total-price">$ 15.00</span>
+                  <span class="total-price">$ ${cart.getTotalCart()}</span>
                 </div>
                 <div class="cart-wrapper__btn">
-                    <a href="<c:url value="/site/cart" />" class="cart-view btn btn-m fs-14">VIEW CART</a>
+                    <a href="<c:url value="/cart/view" />" class="cart-view btn btn-m fs-14">VIEW CART</a>
                   <a href="<c:url value="/site/checkout" />" class="cart-checkout btn btn-m btn--active fs-14">
                       CHECKOUT
                   </a>
@@ -189,7 +241,7 @@
     <!-- Catalog -->
     <section class="catalog">
       <ul class="catalog-list">
-        <li><a href="">Home</a></li>
+        <li><a href="/JewelryStore/index.jsp">Home</a></li>
         <li class="catalog-shop relative">
           <a href="<c:url value="/products/show" />">
             <span class="mr-8">Shop</span>
