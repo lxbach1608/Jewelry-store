@@ -127,18 +127,30 @@ public class ProductController extends HttpServlet {
                 productsPromotion_id.add(id);
             }
 
-            request.setAttribute("productsPromotion_id", productsPromotion_id);
+            session.setAttribute("productsPromotion_id", productsPromotion_id);
         } catch(Exception ex) {
             System.out.println(ex);
         }
-//        
-        List<Product> products = ProductDB.selectDistinctProducts();
+                
+        int count = 0;
+        List<Product> products = null;
+        
+        try {
+            products = ProductDB.selectDistinctProducts();
+            
+            count = products.size() / 9;
+            
+        } catch(Exception ex) {
+            System.out.println(ex);
+            
+            request.setAttribute("globleMessage", "Something went wrong when get products !!! :(");
+            
+            return "/views/products/show.jsp";
+        }
         
         String page = request.getParameter("page");
 
         List<Integer> pages = new ArrayList<>();
-        
-        int count = products.size() / 9;
         
         for (int i = 0; i <= count; i++) {
             boolean add = pages.add(i);

@@ -4,8 +4,8 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/store?autoReconnect=true"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.user" value="admin"/>
+    <property name="javax.persistence.jdbc.url" value="jdbc:mysql://web.cikaomb5qokd.ap-southeast-2.rds.amazonaws.com:3306/store?autoReconnect=true"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="lxbach1608"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
@@ -14,4 +14,5 @@
   </persistence-unit>
 </persistence>
 
-<!--<property name="javax.persistence.jdbc.url" value="jdbc:mysql://web.cikaomb5qokd.ap-southeast-2.rds.amazonaws.com:3306/store"/>-->
+
+      <!--<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/store?autoReconnect=true"/>-->
