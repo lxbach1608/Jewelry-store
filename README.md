@@ -1,7 +1,8 @@
 # Jewelry Store
-## Introduction
 ### Documentation for details:
-
+[Đồ Án CNTT-21110359-21110316.docx](https://github.com/lxbach1608/Jewelry-store/files/13677571/D.An.CNTT-21110359-21110316.docx) <br>
+[Đồ Án CNTT-21110359-21110316.pdf](https://github.com/lxbach1608/Jewelry-store/files/13677574/D.An.CNTT-21110359-21110316.pdf)
+## Introduction
 ### 1. Language, model and technical:
 **Jewelry Store** project is a website application builded base on object oriented programming (OOP) and MVC'model knowledge.<br>
 The main language using in this project is Java Enterprise Edition (Java EE), beside that we also using related knowledges for building website:<br>
@@ -10,7 +11,7 @@ A **servlet** is a Java programming language class that is used to extend the ca
 **Java persistence (JPA)**: to store and manage Java objects in a relational. <br>
 ### 2. User interface (UI):
 **Tailwind**: for building UI Admin page<br>
-**HTML, CSS**: for building website
+**HTML, CSS**: for building UI website
 ### 3. User Experiance (UX):
 **Javascript**: for fast searching won't reload page, choosing variations of product, hanle validation, CRUD product won't reload page, hanle categories.
 ## Contributers
