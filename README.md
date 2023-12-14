@@ -13,7 +13,7 @@ A **servlet** is a Java programming language class that is used to extend the ca
 **HTML, CSS**: for building website
 ### 3. User Experiance (UX):
 **Javascript**: for fast searching won't reload page, choosing variations of product, hanle validation, CRUD product won't reload page, hanle categories.
-## Contributer
+## Contributers
 Project leader: <https://github.com/lxbach1608><br>
 member: <https://github.com/Thuythuong2003>
 ## Used:
@@ -28,8 +28,6 @@ We have end-point using for our website deploying on AWS:<br> [`jdbc:mysql://web
 2. Open folder in netbeans. <br>
 3. change the persistant with end-point to connect database (Optional). <br>
    <img width="283" alt="Screenshot 2023-12-14 at 15 12 44" src="https://github.com/lxbach1608/Jewelry-store/assets/89071805/9c0aaa8a-f1c3-4f9a-a711-c28485afe341"> <br>
-   <img width="1188" alt="Screenshot 2023-12-14 at 15 15 11" src="https://github.com/lxbach1608/Jewelry-store/assets/89071805/b316b28a-b5bc-462a-947d-eaefa9e64ef1">
+   <img width="1188" alt="Screenshot 2023-12-14 at 15 15 11" src="https://github.com/lxbach1608/Jewelry-store/assets/89071805/b316b28a-b5bc-462a-947d-eaefa9e64ef1"> <br>
 
 4. Run project.
-
-- Fourth item
