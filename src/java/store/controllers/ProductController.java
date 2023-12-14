@@ -87,6 +87,7 @@ public class ProductController extends HttpServlet {
 
             String jsonProducts = gson.toJson(products);
 
+            response.addHeader("Access-Control-Allow-Origin", "*");
             response.getWriter().write(jsonProducts);
             
             return;
@@ -103,6 +104,7 @@ public class ProductController extends HttpServlet {
 
             String jsonProducts = gson.toJson(products);
 
+            response.addHeader("Access-Control-Allow-Origin", "*");
             response.getWriter().write(jsonProducts);
             
             return;

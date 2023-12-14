@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", function (e) {
-  const url1 = "http://localhost:8080/JewelryStore/api/products";
-  const url2 = "http://localhost:8080/JewelryStore/api/products/promotion";
+//  const url1 = "http://localhost:8080/JewelryStore/api/products";
+    const url1 = "https://jewelrystore.onrender.com/JewelryStore/api/products";
+
+//  const url2 = "http://localhost:8080/JewelryStore/api/products/promotion";
+    const url2 = "https://jewelrystore.onrender.com/JewelryStore/api/products/promotion";
+
 
   const productsApi = fetch(url1).then((response) => response.json());
   const productsOnPromotionApi = fetch(url2).then((response) => response.json());
@@ -61,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
   Promise.all([productsApi, productsOnPromotionApi])
     .then((data) => {
       const [products, productsOnPromotion] = data;
-
+      
       listProducts = products.map((element, index) => {
         const isOnPromotion = productsOnPromotion.some(
           (promoProduct) => promoProduct.productId === element.productId
@@ -73,11 +77,10 @@ document.addEventListener("DOMContentLoaded", function (e) {
         };
         
       });
-//      href="http://localhost:8080/JewelryStore/products/details/${element.slug}?id=${element.productId}"
       console.log(listProducts);
       
       listProducts = listProducts.map((element, index) => {
-          return `<a href="http://localhost:8080/JewelryStore/products/details/${element.slug}?id=${element.productId}" class="w-100">
+          return `<a href="https://jewelrystore.onrender.com/JewelryStore/products/details/${element.slug}?id=${element.productId}" class="w-100">
                             <div class="flex">
                                 <img class="search-img" src="${element.imageUrl}"/>
                                 <div class="w-100">

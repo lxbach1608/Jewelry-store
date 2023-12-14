@@ -1,7 +1,6 @@
 
 package store.data;
 
-import store.util.DBUtil;
 import store.business.Product;
 
 import java.util.List;

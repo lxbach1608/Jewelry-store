@@ -1,4 +1,4 @@
-package store.util;
+package store.data;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

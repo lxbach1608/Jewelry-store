@@ -2,7 +2,6 @@
 package store.data;
 
 import java.util.List;
-import store.util.DBUtil;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;

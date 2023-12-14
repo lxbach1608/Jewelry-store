@@ -34,7 +34,6 @@ public class InvoiceController extends HttpServlet {
             url = placedOrder(request, response);
         }
         
-//        response.sendRedirect(rootPath);
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
     
@@ -50,27 +49,25 @@ public class InvoiceController extends HttpServlet {
         
         Cart cart = (Cart)session.getAttribute("cart");
         
-        if (cart == null) {
-            String failureMessage = "Error when place order";
-            
-            request.setAttribute("failureMessage", failureMessage);
-            
-//            return;
-        }
-        
         User user = (User)session.getAttribute("user");
         
         long id = user.getUserId();
         
-       
-        
         Date orderDate = new Date();
-        String note = "this is Node";
+        
+        String note = "this is Note";
         Status status = null;
         double total = cart.getTotalCartValue();
         
-        user = UserDB.selectUser(id);
-        status = StatusDB.selectStatus(id);
+        try {
+            user = UserDB.selectUser(id);
+            status = StatusDB.selectStatus(id);
+        } catch (Exception ex) {
+            System.out.println(ex);
+            
+            return "/views/checkout.jsp";
+        }
+        
         
         String phone = user.getCustomer().getPhoneNumber();
         String addressLine = user.getCustomer().getAddress().getAddressLine();
@@ -94,10 +91,6 @@ public class InvoiceController extends HttpServlet {
         o.setOrderDate(orderDate);
         o.setLines(cart.getItems());
         o.setTotal(total);
-        
-        for(LineItem li : cart.getItems()) {
-            System.out.println(li.getQuantity());
-        }
         
         try {
             InvoiceDB.insert(o);

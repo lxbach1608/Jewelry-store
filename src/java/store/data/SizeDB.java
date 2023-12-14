@@ -4,7 +4,6 @@
  */
 package store.data;
 
-import store.util.DBUtil;
 import java.util.List;
 import store.business.Size;
 

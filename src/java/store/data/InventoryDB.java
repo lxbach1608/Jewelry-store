@@ -1,7 +1,6 @@
 
 package store.data;
 
-import store.util.DBUtil;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
