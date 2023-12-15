@@ -1,12 +1,13 @@
 # Jewelry Store
 ### Documentation for details:
-[Đồ Án CNTT-21110359-21110316.docx](https://github.com/lxbach1608/Jewelry-store/files/13677571/D.An.CNTT-21110359-21110316.docx) <br>
-[Đồ Án CNTT-21110359-21110316.pdf](https://github.com/lxbach1608/Jewelry-store/files/13677574/D.An.CNTT-21110359-21110316.pdf)
+[Đồ Án CNTT-LeXuanBach-21110359_BuiDangThuyThuong-21110316.docx](https://github.com/lxbach1608/Jewelry-store/files/13681761/D.An.CNTT-LeXuanBach-21110359_BuiDangThuyThuong-21110316.docx) <br>
+[Đồ Án CNTT-21110359-21110316.pdf](https://github.com/lxbach1608/Jewelry-store/files/13681767/D.An.CNTT-21110359-21110316.pdf) <br>
+Link video báo cáo: <https://drive.google.com/drive/folders/1oZOWfclE42y3hCnuO6mqSeSASaL1Q8pM?usp=sharing>
 ## Introduction
 ### 1. Language, model and technical:
 **Jewelry Store** project is a website application builded base on object oriented programming (OOP) and MVC'model knowledge.<br>
 The main language using in this project is Java Enterprise Edition (Java EE), beside that we also using related knowledges for building website:<br>
-**Jakarta Server Pages (JSP)**: tempate engine.<br>
+**Jakarta Server Pages (JSP)**: template engine.<br>
 A **servlet** is a Java programming language class that is used to extend the capabilities of servers that host applications accessed by means of a request-response programming model. <br>
 **Java persistence (JPA)**: to store and manage Java objects in a relational. <br>
 ### 2. User interface (UI):
